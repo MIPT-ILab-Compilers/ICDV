@@ -1,3 +1,6 @@
+/** 
+ * @file: Edge.cpp
+ */
 #include "predecls.h"
 
 Edge::Edge(pNode from, pNode to):
