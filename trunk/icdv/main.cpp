@@ -1,3 +1,6 @@
+/** 
+ * @file: main.cpp
+ */
 #include <QtGui/QApplication>
 #include <QtGui/QMainWindow>
 

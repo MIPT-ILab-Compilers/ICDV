@@ -1,4 +1,5 @@
-/** Deriv.cpp
+/** 
+ * @file: Deriv.cpp
  * Files Deriv.* contain an example of how one could expand class Graph, 
  * deriving a new class from it.
  * In this file we'll create class EGraph, representing extended graph. Instead
@@ -9,6 +10,8 @@
  */
 #include "Deriv.h"
 
+/**
+ */
 void EGraph::FreeNode(pNode p)
 {
 	assert(p != NULL);

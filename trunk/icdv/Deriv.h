@@ -1,4 +1,5 @@
-/** Deriv.h
+/**
+ * @file: Deriv.h
  * Files Deriv.* contain an example of how one could expand class Graph, 
  * deriving a new class from it.
  * In this file we'll create class EGraph, representing extended graph. Instead

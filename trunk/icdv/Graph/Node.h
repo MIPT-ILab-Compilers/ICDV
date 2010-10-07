@@ -1,3 +1,6 @@
+/** 
+ * @file: Node.h
+ */
 #ifndef GRAPH_NODE_H
 #define GRAPH_NODE_H
 
