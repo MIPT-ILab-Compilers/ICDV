@@ -47,18 +47,27 @@ void Test_QT(int argc, char** argv)
 	printf("QT test passed!\n");
 }
 
-/**
- * Main function
- */
-int main(int argc, char **argv)
+void Run_Unit_Tests()
 {
 	// Test base graph
 	Test_Graph();
 
 	// Test derived graph
 	Derivation_Example();
+}
 
-	// Test QT
+/**
+ * Main function
+ */
+int main(int argc, char **argv)
+{
+#ifdef DEBUG
+	Run_Unit_Tests();
+#endif
+
+	/* For now, it's just a QT test.
+	 * Later, we'll start the application here.
+	 */
 	Test_QT(argc,argv);
 
 	return 0;
