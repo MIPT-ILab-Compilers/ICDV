@@ -21,8 +21,37 @@ protected:
 	int m_total_nodes_num;
 	int m_total_edges_num;
 public:
-	Graph() :
-		m_total_nodes_num(0), 
+
+	list<pNode> * nodes_list(){
+		return  &m_nodes_list;
+	}
+
+	list<pEdge> *edges_list(){
+		return  &m_edges_list;
+	}
+
+	/// Implementation of depth-first search.
+	/**
+	 * param node - the node from which DFS starts.
+	 * param isused - the map in which passed nodes were marked.
+	 * param dfs - the map of in which ways of DFS were marked.
+	 * param num - number of previous node.
+	 */
+	void DFS(pNode node,
+		map<pNode, bool> *isused,
+		map<pNode, int> *dfs,
+		int *num);
+
+	/// If this is not connected graph, CreateSingleEntry() will
+	/// create single graph using DFS.
+	virtual void CreateSingleEntry();
+
+	/// Search reverse edges and puts them into ReverseEdges list.
+	/// Graph must be connected.
+	virtual bool FindReverseEdges(list<pEdge> &ReverseEdges);
+
+		Graph() :
+	m_total_nodes_num(0), 
 		m_total_edges_num(0)
 	{};
 	virtual ~Graph() {
@@ -46,7 +75,7 @@ public:
 	 */
 	virtual pEdge AddEdge(pNode from, pNode to);
 
-	/// Delete node from the graph and all its incoming and outgoing edges, 
+	/// Delete node from the graph and all  its incoming and outgoing edges, 
 	/// and free memory, allocated for node
 	/** 
 	 *	\param node - not to be deleted

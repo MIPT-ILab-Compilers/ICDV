@@ -6,10 +6,12 @@
 
 #include "Graph\predecls.h"
 #include "Deriv.h"
+#include "Layout\Layout.h"
 
 /**
  * Create a graph and call some of its methods.
  */
+
 void Test_Graph()
 {
 	printf("\nBase graph test started..\n");
@@ -27,10 +29,11 @@ void Test_Graph()
 		g.AddEdge(p[i], p[i-2]);
 	}
 	g.Dump();
-
 	g.DeleteNode(p[5]);
 	g.DeleteNode(p[7]);
 	g.DeleteEdge(p[3],p[4]);
+	g.AddEdge(p[3], p[6]);
+
 	g.Dump();
 	g.Destroy();
 	delete []p;
@@ -54,6 +57,9 @@ void Run_Unit_Tests()
 
 	// Test derived graph
 	Derivation_Example();
+	
+	//Layout tests
+	LayoutTest();
 }
 
 /**

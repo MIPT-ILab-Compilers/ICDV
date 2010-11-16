@@ -16,6 +16,9 @@ protected:
 	/// Ctor
 	Edge(pNode from, pNode to);
 public:
+
+	void Reverse();
+
 	/// Get edge id
 	int  id() {return m_id;}
 

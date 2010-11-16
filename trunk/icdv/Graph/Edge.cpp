@@ -24,6 +24,21 @@ Edge::Edge(pNode from, pNode to):
 	to->m_in_edges_list.push_back(this);
 };
 
+void Edge::Reverse(){
+	pNode temp_node;
+
+	// Swaping from<->to nodes for the edges;
+	temp_node = m_to; 
+	m_to = m_from;
+	m_from = temp_node;
+
+	// Swaping in<->out edges for the nodes;
+	m_to->m_in_edges_list.push_back(this);
+	m_from->m_out_edges_list.push_back(this);
+	m_to->m_out_edges_list.remove(this);
+	m_from->m_in_edges_list.remove(this);
+}
+
 void Edge::Dump() {
 	printf("Edge %d: %d-->%d\n", m_id, m_from->m_id, m_to->m_id);
 };

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8,00"
+	Version="8.00"
 	Name="icdv"
 	ProjectGUID="{8F405C53-237B-4A32-BF12-26D54530B9BF}"
 	RootNamespace="icdv"
@@ -210,6 +210,38 @@
 				</File>
 				<File
 					RelativePath=".\Graph\predecls.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Layout"
+				>
+				<File
+					RelativePath=".\Layout\Layout.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Layout\Layout.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Layout\LEdge.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Layout\LGraph.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Layout\LGraph.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Layout\LNode.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Layout\LNode.h"
 					>
 				</File>
 			</Filter>
