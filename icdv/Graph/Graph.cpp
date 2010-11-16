@@ -107,4 +107,118 @@ bool Graph::DeleteEdge(pNode from, pNode to)
 	}
 	return false;
 }
+void Graph::DFS(pNode node,
+				map<pNode, bool> *isused,
+				map<pNode, int> *dfs,
+				int *num) {
 
+					if ((*isused)[node] == true)
+						return;
+
+					(*isused)[node] = true;
+					(*dfs)[node] = ++(*num);
+
+					for (list<pEdge>::iterator edge_iter = node->m_out_edges_list.begin();
+						edge_iter != node->m_out_edges_list.end();
+						edge_iter++) {
+
+							if (!(*isused)[(*edge_iter)->m_to])
+								DFS((*edge_iter)->m_to, isused, dfs, num);
+					}
+}
+
+void Graph::CreateSingleEntry() {
+
+	int count_root = 0, num = 0;
+	map<pNode, int> *dfs = new map<pNode, int>;
+	map<pNode, bool> *isused = new map<pNode, bool>;
+	list<pNode> *root_node_list = new list<pNode>;
+	pNode root = AddNode();
+
+	for (list<pNode>::iterator node_iter = m_nodes_list.begin();
+		node_iter != m_nodes_list.end();
+		node_iter++)
+		(*dfs)[*node_iter] = 0;
+
+	for (list<pNode>::iterator node_iter = m_nodes_list.begin();
+		node_iter != m_nodes_list.end();
+		node_iter++)
+		(*isused)[(*node_iter)] = false;
+
+	for (list<pNode>::iterator node_iter = m_nodes_list.begin();
+		node_iter != m_nodes_list.end();
+		node_iter++)
+		if ((*node_iter)->m_in_edges_list.size() == 0)
+			root_node_list->push_back((*node_iter));
+
+	for (list<pNode>::iterator node_iter = root_node_list->begin();
+		node_iter != root_node_list->end();
+		node_iter++) {
+			if (!(*isused)[*node_iter]) {
+				DFS((*node_iter), isused, dfs, &num);
+				if ((*node_iter) != root) {
+					pEdge edge = AddEdge(root, (*node_iter));
+					(*node_iter)->m_in_edges_list.push_back(edge);
+					root->m_out_edges_list.push_back(edge);
+				}
+			}
+	}
+
+	for (list<pNode>::iterator node_iter = m_nodes_list.begin();
+		node_iter != m_nodes_list.end();
+		node_iter++) {
+			if (!(*isused)[*node_iter]) {
+				DFS((*node_iter), isused, dfs, &num);
+				if ((*node_iter) != root) {
+					pEdge edge = AddEdge(root, (*node_iter));
+					(*node_iter)->m_in_edges_list.push_back(edge);
+					root->m_out_edges_list.push_back(edge);
+				}
+			}
+	}
+
+	delete dfs;
+	delete isused;
+	delete root_node_list;
+}
+
+bool Graph::FindReverseEdges(list<pEdge> &ReverseEdges) {
+	map<pNode, int> *dfs = new map<pNode, int>;
+	map<pNode, bool> *isused = new map<pNode, bool>;
+	int num = 0; // Current node is nul.
+	size_t count_rev_edges = ReverseEdges.size();
+
+
+	for (list<pNode>::iterator node_iter = m_nodes_list.begin();
+		node_iter != m_nodes_list.end();
+		node_iter++)
+		(*dfs)[*node_iter] = 0;
+
+	for (list<pNode>::iterator node_iter = m_nodes_list.begin();
+		node_iter != m_nodes_list.end();
+		node_iter++)
+		(*isused)[(*node_iter)] = false;
+
+	for (list<pNode>::iterator node_iter = m_nodes_list.begin();
+		node_iter != m_nodes_list.end();
+		node_iter++)
+
+		if ((*isused)[*node_iter] == false) // Starts from every new node.
+			DFS((*node_iter), isused, dfs, &num);
+
+	delete isused;
+
+	for (list<pEdge>::iterator edge_iter = m_edges_list.begin();
+		edge_iter != m_edges_list.end();
+		edge_iter++)
+
+		if ((*dfs)[(*edge_iter)->m_to] < (*dfs)[(*edge_iter)->m_from]){
+			ReverseEdges.push_back((*edge_iter));
+		}
+		delete dfs;
+
+		if ((int)ReverseEdges.size() == count_rev_edges)
+			return false; // No reverse edges found.
+
+		return true;
+}

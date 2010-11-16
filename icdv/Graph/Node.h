@@ -19,6 +19,14 @@ protected:
 public:
 	/// Get node id
 	int id() { return m_id;}
+	
+	list<pEdge> * in_edges_list(){
+		return &m_in_edges_list;
+	}
+
+	list<pEdge> * out_edges_list(){
+		return &m_out_edges_list;
+	}
 
 	/// Print info about the node
 	virtual void Dump();
