@@ -9,6 +9,11 @@
 #include <map>
 using namespace std;
 
+/// Macros for disable copy constructor.
+#define DISALLOW_COPY_AND_ASSIGN(TypeName) \
+  TypeName(const TypeName&);               \
+  void operator=(const TypeName&)
+
 class Graph;
 class Node;
 class Edge;

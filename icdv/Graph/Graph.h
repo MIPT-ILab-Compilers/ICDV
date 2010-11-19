@@ -16,6 +16,18 @@
  */
 class Graph {
 protected:
+	
+/// Implementation of depth-first search.
+/**
+ * param node - the node from which DFS starts.
+ * param isused - the map in which passed nodes were marked.
+ * param dfs - the map of in which ways of DFS were marked.
+ * param num - number of previous node.
+*/
+	void DFS(pNode node,
+		map<pNode, bool> *isused,
+		map<pNode, int> *dfs,
+		int *num);
 	list<pNode> m_nodes_list;
 	list<pEdge> m_edges_list;
 	int m_total_nodes_num;
@@ -30,33 +42,25 @@ public:
 		return  &m_edges_list;
 	}
 
-	/// Implementation of depth-first search.
-	/**
-	 * param node - the node from which DFS starts.
-	 * param isused - the map in which passed nodes were marked.
-	 * param dfs - the map of in which ways of DFS were marked.
-	 * param num - number of previous node.
-	 */
-	void DFS(pNode node,
-		map<pNode, bool> *isused,
-		map<pNode, int> *dfs,
-		int *num);
+	Graph() :
+		m_total_nodes_num(0), 
+		m_total_edges_num(0)
+	{};
 
-	/// If this is not connected graph, CreateSingleEntry() will
+	virtual ~Graph() {
+		Destroy();
+	}
+
+	/// Checks the integrity of data of the graph.
+    virtual bool Verify();
+
+    /// If this is not connected graph, CreateSingleEntry() will
 	/// create single graph using DFS.
-	virtual void CreateSingleEntry();
+    virtual void CreateSingleEntry();
 
 	/// Search reverse edges and puts them into ReverseEdges list.
 	/// Graph must be connected.
 	virtual bool FindReverseEdges(list<pEdge> &ReverseEdges);
-
-		Graph() :
-	m_total_nodes_num(0), 
-		m_total_edges_num(0)
-	{};
-	virtual ~Graph() {
-		Destroy();
-	}
 
 	/// Add a new node to the graph
 	/**
@@ -101,6 +105,7 @@ public:
 	virtual void Destroy(); ///< Delete all nodes and edges
 	friend class Node;
 	friend class Edge;
+
 };
 
 #endif
