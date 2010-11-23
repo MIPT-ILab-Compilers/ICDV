@@ -9,6 +9,7 @@ void LGraph::Layout(){
 	FindReverseEdges(ReverseEdges);
 	ReverseReverseEdges(ReverseEdges);
 	InitRank();	
+
 	// Ordering
 
 }
@@ -19,7 +20,11 @@ void LGraph::InitRank(){
 	for (list<pNode>::iterator node_iter = (*nodes_list()).begin();
 		node_iter != (*nodes_list()).end(); 
 		node_iter++){
-			( (LNode *)(*node_iter))->Rank();
+			int rank;
+			rank = ((LNode *)(*node_iter))->Rank();
+#ifdef DEBUG
+			printf("Node:%i  rank:%i\n",((LNode *)(*node_iter))->id(),rank);
+#endif
 	}
 }
 

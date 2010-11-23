@@ -2,6 +2,9 @@
  * @file: LGraph.h
  */
 
+#ifndef LAYOUT_GRAPH_H
+#define LAYOUT_GRAPH_H
+
 /// Graph with Layout methods
 /**
  * 
@@ -22,3 +25,5 @@ public:
 	friend LEdge;
 	friend LNode;
 };
+
+#endif
