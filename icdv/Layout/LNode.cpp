@@ -27,5 +27,6 @@ int  LNode::Rank(){
 		}
 		rank = res;
 	}
+	we_were_here = 1;
 	return rank;
 }

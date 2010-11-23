@@ -2,6 +2,9 @@
  * @file: LNode.h
  */
 
+#ifndef LAYOUT_NODE_H
+#define LAYOUT_NODE_H
+
 /**
  * This class contains one new variable: rank
  * And method Rank() to calculate it.
@@ -16,6 +19,8 @@ public:
 		rank = -1;
 		we_were_here = 0;
 	}
-	friend LEdge; 
+	friend LEdge;
 	friend LGraph;
 };
+
+#endif

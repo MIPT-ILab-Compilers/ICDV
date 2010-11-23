@@ -2,6 +2,9 @@
  * @file: Layout.h
  */
 
+#ifndef LAYOUT_H
+#define LAYOUT_H
+
 #include "..\Graph\predecls.h"
 
 class LGraph;
@@ -17,3 +20,5 @@ typedef LEdge*  pLEdge;
 #include "LGraph.h"
 
 void LayoutTest();
+
+#endif
