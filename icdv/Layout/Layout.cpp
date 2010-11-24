@@ -33,7 +33,9 @@ void LayoutTest()
 	g.DeleteNode(p[5]);
 	g.DeleteNode(p[7]);
 	g.DeleteEdge(p[3],p[4]);
-
+	g.AddEdge(p[0],p[3]);
+	g.AddEdge(p[4],p[9]);
+	g.AddEdge(p[4],p[6]);
 	g.Layout();
 
 	g.Dump();

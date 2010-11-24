@@ -33,8 +33,9 @@ Node::Node(pGraph graph)
 {
 	assert(graph);
 	m_graph = graph;
-	m_id = graph->m_total_nodes_num;
+	m_id = graph->next_node_id;
 	graph->m_total_nodes_num++;
+	graph->next_node_id++;
 	graph->m_nodes_list.push_back(this);
 }
 

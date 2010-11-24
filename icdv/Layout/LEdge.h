@@ -18,6 +18,7 @@ public:
 	}
 	friend LGraph;
 	friend LNode;
+	void BreakLongEdge();
 };
 
 #endif

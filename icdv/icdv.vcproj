@@ -225,6 +225,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\Layout\LEdge.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\Layout\LEdge.h"
 					>
 				</File>

@@ -18,6 +18,8 @@ protected:
 public:
 
 	void Reverse();
+	/// Get m_graph
+	pGraph graph() {return m_graph;}
 
 	/// Get edge id
 	int  id() {return m_id;}
