@@ -9,7 +9,10 @@ void LGraph::Layout(){
 	FindReverseEdges(ReverseEdges);
 	ReverseReverseEdges(ReverseEdges);
 	InitRank();	
-
+	list<pEdge> LongEdges;
+	FindLongEdges(LongEdges);
+	AddDummyNodes(LongEdges);
+	
 	// Ordering
 
 }
@@ -37,7 +40,24 @@ void LGraph::ReverseReverseEdges(list<pEdge> &ReverseEdges){
 	}				
 }
 
+void LGraph::FindLongEdges(list<pEdge> &LongEdges){
+	for (list<pEdge>::iterator edge_iter = (*edges_list()).begin();
+		edge_iter != (*edges_list()).end();
+		edge_iter++){
+			if (((pLNode) (*edge_iter)->to())->Rank() - ((pLNode) (*edge_iter)->from())->Rank() > 1){
+				printf("BigEdge:%i\n",(*edge_iter)->id());
+				LongEdges.push_back(*edge_iter);
+			}
+	}			
+}
 
+void LGraph::AddDummyNodes(list<pEdge> &LongEdges){
+for (list<pEdge>::iterator edge_iter = LongEdges.begin();
+		edge_iter != LongEdges.end();
+		edge_iter++){
+			((pLEdge) (*edge_iter))->BreakLongEdge();
+	}			
+}
 
 void LGraph::FreeNode(pNode p){
 	assert(p != NULL);

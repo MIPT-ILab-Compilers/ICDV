@@ -18,6 +18,8 @@ public:
 	void Layout();
 	/// Init feasible ranking.
 	virtual void InitRank();
+	void AddDummyNodes(list<pEdge> &LongEdges);
+	void FindLongEdges(list<pEdge> &LongEdges);
 	virtual pLNode AddNode();
 	virtual pLEdge AddEdge(pNode from, pNode to);
 	virtual void FreeNode(pNode p);

@@ -32,6 +32,8 @@ protected:
 	list<pEdge> m_edges_list;
 	int m_total_nodes_num;
 	int m_total_edges_num;
+	int next_node_id;
+	int next_edge_id;
 public:
 
 	list<pNode> * nodes_list(){
@@ -44,7 +46,9 @@ public:
 
 	Graph() :
 		m_total_nodes_num(0), 
-		m_total_edges_num(0)
+		m_total_edges_num(0),
+		next_node_id(0),
+		next_edge_id(0)
 	{};
 
 	virtual ~Graph() {

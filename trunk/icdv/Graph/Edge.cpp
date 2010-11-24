@@ -14,8 +14,9 @@ Edge::Edge(pNode from, pNode to):
 	pGraph pg = from->m_graph;
 	assert(pg);
 
-	m_id = pg->m_total_edges_num;
+	m_id = pg->next_edge_id;
 	pg->m_total_edges_num++;
+	pg->next_edge_id++;
 	pg->m_edges_list.push_back(this);
 
 	m_graph = pg;
