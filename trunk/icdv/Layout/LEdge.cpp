@@ -14,13 +14,12 @@ void LEdge::BreakLongEdge(){
 
 	///Adding n-1 nodes to do all rank differences equal 1
 	for (int i = 1; i < n; i++){
-		newnode = (((pLGraph) graph())->AddNode());
+		newnode = (pLNode) graph()->AddNode();
 		newnode->dummy = true;
 		newnode->rank = (((pLNode) from())->Rank()) + i;
-		((pLGraph) graph())->AddEdge(prevnode, newnode);
+		graph()->AddEdge(prevnode, newnode);
 		prevnode = newnode;
 	}
-
-	((pLGraph) graph())->AddEdge(prevnode,(pLNode) to());
-	((pLGraph) graph())->DeleteEdge(((pLNode) from()), ((pLNode) to()));
+	graph()->AddEdge(prevnode, to());
+	graph()->DeleteEdge(from(), to());
 }

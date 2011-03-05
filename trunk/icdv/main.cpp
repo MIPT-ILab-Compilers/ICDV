@@ -4,9 +4,9 @@
 #include <QtGui/QApplication>
 #include <QtGui/QMainWindow>
 
-#include "Graph\predecls.h"
+#include "Graph/predecls.h"
 #include "Deriv.h"
-#include "Layout\Layout.h"
+#include "Layout/Layout.h"
 
 /**
  * Create a graph and call some of its methods.

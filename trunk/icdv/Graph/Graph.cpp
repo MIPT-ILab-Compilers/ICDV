@@ -223,7 +223,7 @@ void Graph::DFS(pNode node,
 
 void Graph::CreateSingleEntry() {
     
-	int count_root = 0, num = 0;
+        int  num = 0;
 	map<pNode, int> *dfs = new map<pNode, int>;
 	map<pNode, bool> *isused = new map<pNode, bool>;
 	list<pNode> *root_node_list = new list<pNode>;
@@ -311,7 +311,7 @@ bool Graph::FindReverseEdges(list<pEdge> &ReverseEdges) {
 
 	delete dfs;
 
-	if ((int)ReverseEdges.size() == count_rev_edges)
+        if (ReverseEdges.size() == count_rev_edges)
 		return false; // No reverse edges found.
 
 	return true;
