@@ -5,8 +5,12 @@
 #define GRAPH_PREDECLS_H
 
 #include <assert.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <list>
 #include <map>
+#include <vector>
+#include <algorithm>
 using namespace std;
 
 /// Macros for disable copy constructor.

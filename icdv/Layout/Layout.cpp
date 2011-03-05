@@ -21,25 +21,30 @@ void LayoutTest()
 	for(int i = 0; i < len; i++) {
 		p[i] = (pLNode)g.AddNode();
 	}
-	for(int i = 0; i < len-1; i++) {
-		g.AddEdge(p[i], p[i+1]);
-	}
-	for(int i = 2; i < len; i+=3) {
-		g.AddEdge(p[i], p[i-2]);
-	}
-	g.Dump();
 
 	// Performing some transformations
-	g.DeleteNode(p[5]);
-	g.DeleteNode(p[7]);
-	g.DeleteEdge(p[3],p[4]);
+	g.AddEdge(p[0],p[1]);
+	g.AddEdge(p[0],p[2]);
 	g.AddEdge(p[0],p[3]);
-	g.AddEdge(p[4],p[9]);
-	g.AddEdge(p[4],p[6]);
+	g.AddEdge(p[1],p[5]);
+	g.AddEdge(p[2],p[6]);
+	g.AddEdge(p[2],p[5]);
+	g.AddEdge(p[3],p[4]);
+	g.AddEdge(p[4],p[7]);
+	g.AddEdge(p[4],p[9]); 
+	g.AddEdge(p[5],p[8]);
+	g.AddEdge(p[6],p[9]);
+	g.AddEdge(p[1],p[8]);
+	g.AddEdge(p[1],p[7]);
+	g.AddEdge(p[1],p[6]);
+	g.AddEdge(p[1],p[5]);
+	g.AddEdge(p[1],p[9]);
+	
 	g.Layout();
-
 	g.Dump();
 
+	printf("maxrank = %i\n",g.getMaxrank());
+	
 	// Clean up
 	g.Destroy();
 	delete []p;

@@ -45,7 +45,7 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
 			/>
 			<Tool
@@ -170,14 +170,6 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\Deriv.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Deriv.h"
-				>
-			</File>
-			<File
 				RelativePath=".\main.cpp"
 				>
 			</File>
@@ -246,6 +238,14 @@
 				</File>
 				<File
 					RelativePath=".\Layout\LNode.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Layout\Ordering.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Layout\Ordering.h"
 					>
 				</File>
 			</Filter>

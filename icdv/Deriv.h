@@ -10,7 +10,7 @@
  */
 #ifndef DERIV_H
 #define DERIV_H
-#include "Graph\predecls.h"
+#include "Graph/predecls.h"
 #include <QtGui/QGraphicsTextItem>
 #include <QtGui/QtGui>
 #include <QtGui/QApplication>
@@ -37,8 +37,8 @@ class ENode: public Node, QGraphicsTextItem {
 	    x = y = 0;
 	}
 	virtual void Dump();
-	friend EEdge; 
-	friend EGraph;
+        friend class EEdge;
+        friend class EGraph;
 };
 
 /// Example of a class derived from Edge
@@ -52,8 +52,8 @@ class EEdge: public Edge {
 	    w = 0;
 	}
 	virtual void Dump();
-	friend EGraph;
-	friend ENode;
+        friend class EGraph;
+        friend class ENode;
 };
 
 /// Example of a class derived from Graph
@@ -68,8 +68,8 @@ class EGraph: public Graph {
 	virtual pEEdge AddEdge(pNode from, pNode to);
 	virtual void FreeNode(pNode p);
 	virtual void FreeEdge(pEdge p);
-	friend EEdge;
-	friend ENode;
+        friend class EEdge;
+        friend class ENode;
 };
 
 /// This function illustrates how to use class EGraph.
