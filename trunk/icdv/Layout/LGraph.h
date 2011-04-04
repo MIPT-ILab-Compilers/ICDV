@@ -46,8 +46,11 @@ public:
 	/// Finds all "long" edges in graph and puts it to the LondEdges list.
 	void FindLongEdges(list<pEdge> &LongEdges);
 	
-	///Init pos value for each node using order.
+        /// Init pos value for each node using order.
 	void InitPos(Ordering order);
+
+        /// Init coordiates for each node.
+        void InitCoordinates(Ordering order);
 
 	/**
 	 * The weighted median heuristic for reducing edge crossings.
