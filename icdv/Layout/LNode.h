@@ -30,6 +30,16 @@ private:
 	bool we_were_here;
 
 	bool dummy;
+
+public:
+	//	True, if it's an entry node.
+	bool entry;
+	//	Number
+	unsigned int uBlkId;
+	list<unsigned int> m_preds_lst;
+	list<unsigned int> m_succs_lst;
+	list<unsigned int> m_exec_lst;
+	list<unsigned int> m_prob_lst;
 public:
 	/// Calculate node rank
 	int Rank();
