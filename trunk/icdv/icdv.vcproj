@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="icdv"
 	ProjectGUID="{8F405C53-237B-4A32-BF12-26D54530B9BF}"
 	RootNamespace="icdv"
@@ -60,6 +60,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="qtmaind.lib QtGuid4.lib QtCored4.lib QtXmld4.lib"
+				AdditionalLibraryDirectories=""
 				GenerateDebugInformation="true"
 				TargetMachine="1"
 			/>
@@ -169,6 +170,14 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
+			<File
+				RelativePath=".\DumpParser.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DumpParser.h"
+				>
+			</File>
 			<File
 				RelativePath=".\main.cpp"
 				>
