@@ -8,7 +8,8 @@ SOURCES += main.cpp \
     Layout/Ordering.cpp \
     Layout/Layout.cpp \
     Layout/LNode.cpp \
-    Layout/LGraph.cpp
+    Layout/LGraph.cpp \
+    Deriv.cpp
 HEADERS += Deriv.h \
     Graph/Edge.h \
     Graph/Graph.h \

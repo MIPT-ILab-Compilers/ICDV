@@ -19,8 +19,9 @@ void LGraph::Layout(){
 		WeightedMedianHeuristic(&order,i);
 		Transpose(&order);
 	}
+        InitPos(order);
+        InitCoordinates(order);
 #ifdef DEBUG
-	InitPos(order);
 	printf("Crossings:%d\n",countCrossing(order));
 #endif
         order.Dump();
@@ -153,10 +154,20 @@ int LGraph::countCrossingOnRank(Ordering order,int rank){
 }	
 
 void LGraph::InitPos(Ordering order){
-        for(unsigned int rank = 0; rank < maxrank; rank++)
+        for(unsigned int rank = 0; rank <= maxrank; rank++)
                 for(unsigned int i = 0; i < order.order_vector[rank].size(); i++)
 			order.order_vector[rank][i]->pos = i;
 }
+
+void LGraph::InitCoordinates(Ordering order){
+    for(unsigned int rank = 0; rank <= maxrank; rank++){
+        for(unsigned int i = 0; i < order.order_vector[rank].size(); i++){
+                        order.order_vector[rank][i]->x = i * 100;
+                        order.order_vector[rank][i]->y = rank * 100;
+        }
+    }
+}
+
 
 void LGraph::Transpose(Ordering *order){
 	bool improved = true;

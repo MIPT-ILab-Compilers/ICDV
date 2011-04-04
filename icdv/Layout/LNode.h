@@ -22,6 +22,10 @@ private:
 	int pos;
 	int median;
 
+        // Coordinates for drawing
+        int x;
+        int y;
+
 	///Flag for the LNode::Rank()
 	bool we_were_here;
 
@@ -32,6 +36,9 @@ public:
 	
 	int getMedian() {return median;}
 	int getPos()    {return pos;}
+
+        int getX() {return x;}
+        int getY() {return y;}
 
 	/** Calculate weighed median for the node.
 	  * The median value of a vertex is defined as the median position of the adjacent vertices if that
@@ -48,6 +55,7 @@ public:
 	bool IsAdjacentToNode(pLNode node);
 	
 	LNode(pLGraph pg): Node((pGraph)pg){
+                x = y = -1;
 		rank = -1;
 		median = 0;
 		we_were_here = false;
