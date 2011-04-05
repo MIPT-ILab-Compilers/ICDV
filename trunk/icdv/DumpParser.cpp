@@ -2,20 +2,19 @@
 //	DumpParser.cpp
 //
 
-#include "Layout\Layout.h"
+#include "Layout/Layout.h"
 #include "DumpParser.h"
 
-#include <QtCore\QFile>
-#include <QtCore\QTextStream>
-#include <QtCore\QRegExp>
-#include <QtCore\QStringList>
+#include <QtCore/QFile>
+#include <QtCore/QTextStream>
+#include <QtCore/QRegExp>
+#include <QtCore/QStringList>
 
 /// Helper to parse numbers in sting
 /*
  *
  */
-unsigned int	ParseDumpNumbs(QString &qStr, list<unsigned int> &lst)
-{
+unsigned int ParseDumpNumbs(const QString &qStr, list<unsigned int> &lst) {
 	int pos = 0;
 	QRegExp qRegExp;
 
@@ -31,9 +30,8 @@ unsigned int	ParseDumpNumbs(QString &qStr, list<unsigned int> &lst)
 	return (unsigned int)lst.size();
 }
 
-int		ParseDump(LGraph * plGraph, const char * cDumpName)
-{
-//	Opening and mapping dump file
+int ParseDump(LGraph * plGraph, const char * cDumpName) {
+// Opening and mapping dump file.
 
 	QFile dump(cDumpName);
 
@@ -57,13 +55,13 @@ int		ParseDump(LGraph * plGraph, const char * cDumpName)
 
 	int pos = 0;
 	LNode *lNodeCur;
-	QRegExp rgBBlk;
+        QRegExp rgBBlk; // WTF?
 
 	rgBBlk.setMinimal(true);
 	rgBBlk.setPatternSyntax(QRegExp::RegExp2);
 	rgBBlk.setPattern("BBLOCK([^0-9]+)(\\d+)(.*)preds:(.*)succs:(.*)exec:(.*)prob:(.*)context:(.*)attr:(.*)(BBLOCK|Root Context)(.*)");
 
-//	The first iteration: building dependent
+//	The first iteration: building dependent.
 	while((pos = rgBBlk.indexIn(map, pos)) != -1) {
 		pos += rgBBlk.matchedLength() - 6;
 		lNodeCur = plGraph->AddNode();
