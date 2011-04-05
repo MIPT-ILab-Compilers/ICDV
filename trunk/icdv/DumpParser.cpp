@@ -5,10 +5,10 @@
 #include "Layout\Layout.h"
 #include "DumpParser.h"
 
-#include <QFile>
-#include <QTextStream>
-#include <QRegExp>
-#include <QStringList>
+#include <QtCore\QFile>
+#include <QtCore\QTextStream>
+#include <QtCore\QRegExp>
+#include <QtCore\QStringList>
 
 /// Helper to parse numbers in sting
 /*
