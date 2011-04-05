@@ -7,7 +7,7 @@
 #include "Graph/predecls.h"
 #include "Deriv.h"
 #include "Layout/Layout.h"
-
+#include "Gui/mainscene.h"
 /**
  * Create a graph and call some of its methods.
  */
@@ -43,8 +43,8 @@ void Test_Graph()
 void Test_QT(int argc, char** argv)
 {
 	printf("\nQT test started..\n");
-	QApplication app( argc, argv);
-	QMainWindow mw;
+        QApplication app( argc, argv);
+        MainScene mw;
 	mw.show();
 	app.exec();
 	printf("QT test passed!\n");

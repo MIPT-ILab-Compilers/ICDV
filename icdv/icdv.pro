@@ -9,7 +9,8 @@ SOURCES += main.cpp \
     Layout/Layout.cpp \
     Layout/LNode.cpp \
     Layout/LGraph.cpp \
-    Deriv.cpp
+    Deriv.cpp \
+    Gui/mainscene.cpp
 HEADERS += Deriv.h \
     Graph/Edge.h \
     Graph/Graph.h \
@@ -19,7 +20,8 @@ HEADERS += Deriv.h \
     Layout/LNode.h \
     Layout/LGraph.h \
     Layout/LEdge.h \
-    Layout/Layout.h
+    Layout/Layout.h \
+    Gui/mainscene.h
 
 CONFIG( debug, debug|release ) {
     OBJECTS_DIR=Debug
@@ -30,3 +32,6 @@ CONFIG( debug, debug|release ) {
     OBJECTS_DIR=Release
     DEFINES += RELEASE
 }
+
+FORMS += \
+    Gui/mainscene.ui
