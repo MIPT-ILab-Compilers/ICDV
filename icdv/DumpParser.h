@@ -2,7 +2,7 @@
 
 
 #ifdef DEBUG
-#define ERROR_MSG(msg)		printf(msg);
+#define ERROR_MSG(msg)	printf(msg);
 #else
 #define ERROR_MSG()
 #endif
@@ -15,5 +15,5 @@
  *   \sa LGraph
  *   \return Returns 0 if success, 1 if file cannot open or allocate memory failed, 2 if dump corrupted.
  */
-int		ParseDump(LGraph * plGraph, const char * cDumpName);
+int ParseDump(LGraph * plGraph, const char * cDumpName);
 

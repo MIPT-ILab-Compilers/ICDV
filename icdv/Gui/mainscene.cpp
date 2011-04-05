@@ -1,3 +1,6 @@
+#include <QFileDialog>
+#include <QString>
+
 #include "mainscene.h"
 #include "ui_mainscene.h"
 
@@ -22,6 +25,17 @@ bool MainScene::ZoomOut() {
 }
 
 bool MainScene::LoadDump() {
+    QString filename = QFileDialog::getOpenFileName(
+                this,
+                tr("Open a dump"),
+                QDir::currentPath(),
+                tr("Dump files (*.hz);;All files (*.*)") );
+    if (filename.isNull()) {
+        return false;
+     }
+    // Initialization of QGraphicsScene and QGraphicsView;
+    // using Graph and Layout.
+    // TODO(Lega): add here init of the graph.
     return true;
 }
 
