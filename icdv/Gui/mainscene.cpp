@@ -40,7 +40,6 @@ LGraph * VisTest()
         g->AddEdge(p[1],p[5]);
         g->AddEdge(p[1],p[9]);
 
-        g->Layout();
         return g;
 }
 
@@ -107,10 +106,14 @@ bool MainScene::Exit() {
     return true;
 }
 
+bool MainScene::Resize(const QSize &iconSize) {
+    ui->CFGView->resize(iconSize);
+    return true;
+}
 // TODO(Lega): it needs to be tested on real dump.
 // TODO(Lega): add nodes information displaying.
 bool MainScene::Draw() {
-    ui->DumpProp->setText("Draw started");
+    ui->statusbar->showMessage("Draw started");
     if (ui->CFGView == NULL) {
         printf("Cannot init QGraphicsView!\n");
         return false;

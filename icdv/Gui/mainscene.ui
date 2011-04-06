@@ -14,41 +14,15 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="">
+   <widget class="QGraphicsView" name="CFGView">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
+      <x>11</x>
+      <y>11</y>
       <width>461</width>
-      <height>581</height>
+      <height>591</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="0" rowspan="3">
-      <widget class="QGraphicsView" name="CFGView"/>
-     </item>
-     <item row="0" column="1">
-      <widget class="QLabel" name="DumpProp">
-       <property name="text">
-        <string>No dump</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QPushButton" name="ZoomInButton">
-       <property name="text">
-        <string>Zoom in</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QPushButton" name="ZoomOutButton">
-       <property name="text">
-        <string>Zoom out</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -75,8 +49,16 @@
     <addaction name="actionAuthors"/>
     <addaction name="actionVersion"/>
    </widget>
+   <widget class="QMenu" name="menuScene">
+    <property name="title">
+     <string>Scene</string>
+    </property>
+    <addaction name="actionZoom_In"/>
+    <addaction name="actionZoom_Out"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuAbout"/>
+   <addaction name="menuScene"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionOpen">
@@ -113,41 +95,19 @@
     <string>Version</string>
    </property>
   </action>
+  <action name="actionZoom_In">
+   <property name="text">
+    <string>Zoom In</string>
+   </property>
+  </action>
+  <action name="actionZoom_Out">
+   <property name="text">
+    <string>Zoom Out</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections>
-  <connection>
-   <sender>ZoomInButton</sender>
-   <signal>clicked()</signal>
-   <receiver>MainScene</receiver>
-   <slot>ZoomIn()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>435</x>
-     <y>567</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>239</x>
-     <y>319</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>ZoomOutButton</sender>
-   <signal>clicked()</signal>
-   <receiver>MainScene</receiver>
-   <slot>ZoomOut()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>435</x>
-     <y>597</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>239</x>
-     <y>319</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>actionAuthors</sender>
    <signal>triggered()</signal>
@@ -228,6 +188,54 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>MainScene</sender>
+   <signal>iconSizeChanged(QSize)</signal>
+   <receiver>MainScene</receiver>
+   <slot>Resize(QSize)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>239</x>
+     <y>319</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>239</x>
+     <y>319</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionZoom_In</sender>
+   <signal>triggered()</signal>
+   <receiver>MainScene</receiver>
+   <slot>ZoomIn()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>239</x>
+     <y>319</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>239</x>
+     <y>319</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionZoom_Out</sender>
+   <signal>triggered()</signal>
+   <receiver>MainScene</receiver>
+   <slot>ZoomOut()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>239</x>
+     <y>319</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>LoadDump()</slot>
@@ -237,5 +245,6 @@
   <slot>Version()</slot>
   <slot>ZoomIn()</slot>
   <slot>ZoomOut()</slot>
+  <slot>Resize(QSize)</slot>
  </slots>
 </ui>
