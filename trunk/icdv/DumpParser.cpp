@@ -31,8 +31,7 @@ unsigned int ParseDumpNumbs(const QString &qStr, list<unsigned int> &lst) {
 }
 
 int ParseDump(LGraph * plGraph, const QString & filename) {
-// Opening and mapping dump file.
-        printf("ParseDump 35\n");
+        // Opening and mapping dump file.
         QFile dump(filename);
 
 	if (!dump.open(QIODevice::ReadOnly | QIODevice::Text)) {

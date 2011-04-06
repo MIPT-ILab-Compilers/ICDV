@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QGraphicsScene>
+#include <QSize>
 
 #include "Layout/Layout.h"
 
@@ -38,6 +39,7 @@ public slots:
     bool Version();
     bool ZoomIn();
     bool ZoomOut();
+    bool Resize(const QSize &iconSize);
 
 private:
     // Representation of call graph.
