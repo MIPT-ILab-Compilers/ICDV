@@ -28,7 +28,7 @@ void LGraph::Layout(){
 
             t.restart();
             // TODO(Kuzmich(svatoslav1)): make transpose faster. It is too slow for now
-         //   Transpose(&order);
+            Transpose(&order);
             printf("Transpose time: %d ms\n", t.elapsed());
         }
 
@@ -62,15 +62,6 @@ vector< vector<pLNode> > LGraph::InitOrder() {
 	return order; 
 }
 
-vector< vector<pLEdge> > LGraph::InitEdgeOrder() {
-        vector< vector<pLEdge> > edge_order(maxrank + 1);
-        for (list<pEdge>::iterator edge_iter = edges_list()->begin();
-        edge_iter != edges_list()->end();
-        edge_iter++) {
-                edge_order[((pLNode) ((*edge_iter))->to())->Rank()].push_back((pLEdge) (*edge_iter));
-        }
-        return edge_order;
-}
 
 void LGraph::ReverseReverseEdges(list<pEdge> &ReverseEdges){
 	for (list<pEdge>::iterator edge_iter = ReverseEdges.begin();
