@@ -28,6 +28,10 @@ public:
 		return &m_out_edges_list;
 	}
 
+        // Coordinates for drawing
+        double x;
+        double y;
+
 	/// Print info about the node
 	virtual void Dump();
 	friend class Edge;

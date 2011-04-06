@@ -6,6 +6,18 @@
 
 #include "Layout/Layout.h"
 
+/// Class that's an implementation of gui.
+/**
+ * LoadDump() calls QFileDialog and Draw()
+ * Draw() draws graph into view and displays
+ *  it into ui->CFGView
+ * Save() saves curent graph as an image file.
+ * Authors() shows authors of this program:).
+ * Version() shows version of this program.
+ * ZoomIn() zooms in curent image.
+ * ZoomOut() zooms out curent image.
+ */
+
 namespace Ui {
     class MainScene;
 }
@@ -28,9 +40,18 @@ public slots:
     bool ZoomOut();
 
 private:
+    // Representation of call graph.
     LGraph * m_graph;
+
+    // This function draws m_graph into
+    // view (see below) and puts it into
+    // CFGView (look into mainscene.ui).
     bool Draw();
+
+    // view is CFGView (look into mainscene.ui) scene.
     QGraphicsScene * view;
+
+    // ui is a main window gui.
     Ui::MainScene *ui;
 };
 

@@ -14,8 +14,9 @@ void LGraph::Layout(){
 	FindLongEdges(LongEdges);
 	AddDummyNodes(LongEdges);
 	Ordering order;
-	order.order_vector = InitOrder();
-	for (int i = 0; i <= 26; i++) {
+        order.order_vector = InitOrder();
+        // Number of iterations.
+        for (int i = 0; i <= 2; i++) {
 		WeightedMedianHeuristic(&order,i);
 		Transpose(&order);
 	}
