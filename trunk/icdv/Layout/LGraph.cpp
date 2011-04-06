@@ -16,10 +16,12 @@ void LGraph::Layout(){
 	Ordering order;
         order.order_vector = InitOrder();
         // Number of iterations.
-        for (int i = 0; i <= 2; i++) {
+        for (int i = 0; i <= 1; i++) {
 		WeightedMedianHeuristic(&order,i);
-		Transpose(&order);
+                // TODO(Kuzmich(svatoslav1)): make transpose faster. It is too slow for now
+                // Transpose(&order);
 	}
+
         InitPos(order);
         InitCoordinates(order);
 #ifdef DEBUG
@@ -82,7 +84,6 @@ bool ComparePointer(pLNode node1, pLNode node2)
 }
 
 void LGraph::WeightedMedianHeuristic(Ordering* order,int iter){
-        //Ordering  temp_order = (*order); // temp order
         Ordering temp_order;
         temp_order.order_vector = order->order_vector;
 	if (iter % 2 == 0) {
@@ -160,11 +161,40 @@ void LGraph::InitPos(Ordering order){
 			order.order_vector[rank][i]->pos = i;
 }
 
-void LGraph::InitCoordinates(Ordering order){
+void LGraph::InitCoordinates(Ordering order,
+                             int normalwide,
+                             int dummywide,
+                             int vertical_size){
+
+    vector<unsigned int> wides(maxrank+1);
+
+    // Getting Max Size;
+    int maxwide = 0;
+
+    // Calculating wide of each rank.
     for(unsigned int rank = 0; rank <= maxrank; rank++){
         for(unsigned int i = 0; i < order.order_vector[rank].size(); i++){
-                        order.order_vector[rank][i]->x = i * 100;
-                        order.order_vector[rank][i]->y = rank * 100;
+          if (!order.order_vector[rank][i]->dummy)
+            wides[rank]+=normalwide;
+          else
+            wides[rank]+=dummywide;
+        }
+        if (wides[rank] > maxwide)
+          maxwide = wides[rank];
+    }
+
+    // Centering graph
+    for(unsigned int rank = 0; rank <= maxrank; rank++){
+        for(unsigned int i = 0; i < order.order_vector[rank].size(); i++){
+
+            if (i == 0)
+              order.order_vector[rank][i]->x = (maxwide / 2)-(wides[rank]/2)+20;
+            else if (!order.order_vector[rank][i]->dummy)
+              order.order_vector[rank][i]->x = order.order_vector[rank][i-1]->x+normalwide;
+            else
+              order.order_vector[rank][i]->x = order.order_vector[rank][i-1]->x+dummywide;
+
+            order.order_vector[rank][i]->y = rank *vertical_size;
         }
     }
 }

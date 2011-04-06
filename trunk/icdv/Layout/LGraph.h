@@ -50,7 +50,10 @@ public:
 	void InitPos(Ordering order);
 
         /// Init coordiates for each node.
-        void InitCoordinates(Ordering order);
+        void InitCoordinates(Ordering order,
+                             int normalwide = 30,
+                             int dummywide = 10,
+                             int vertical_size = 50);
 
 	/**
 	 * The weighted median heuristic for reducing edge crossings.
