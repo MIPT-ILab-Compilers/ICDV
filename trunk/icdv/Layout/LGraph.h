@@ -13,6 +13,7 @@
 class LGraph: public Graph {
 private:
 	unsigned int maxrank;
+
 public:
 	LGraph(){
 		maxrank = 0;
@@ -68,14 +69,14 @@ public:
 	 * Transpose repeatedly exchanges adjacent vertices on the 
 	 * same rank if this decreases the number of crossings.
 	 */
-	void Transpose(Ordering *order);
+        void Transpose(Ordering *order);//, vector< vector<pLEdge> > *edge_order);
 	
 	/// Calculate all edges crossings in the whole graph.
 	int countCrossing(Ordering order);
 
 	
 	/// Calculate all crossings between rank an rank+1.
-	int countCrossingOnRank(Ordering order,int rank);
+        int countCrossingOnRank(Ordering *order,int rank);
 	
 	/**
 	 * The initial (horisontal)ordering.

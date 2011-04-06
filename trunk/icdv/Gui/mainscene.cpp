@@ -144,13 +144,13 @@ bool MainScene::Draw() {
          iter++) {
 
         if (nodes_drawed[(*iter)->from()]) {
-            view->addEllipse((*iter)->from()->x, (*iter)->from()->y,
+            view->addEllipse((*iter)->from()->x-node_width/2, (*iter)->from()->y-node_heigh/2,
                              node_width, node_heigh);
             nodes_drawed[(*iter)->from()] = false;
         }
 
         if (nodes_drawed[(*iter)->to()]) {
-            view->addEllipse((*iter)->to()->x, (*iter)->to()->y,
+            view->addEllipse((*iter)->to()->x-node_width/2, (*iter)->to()->y-node_heigh/2,
                              node_width, node_heigh);
             nodes_drawed[(*iter)->to()] = false;
         }
