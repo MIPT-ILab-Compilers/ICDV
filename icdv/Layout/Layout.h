@@ -16,7 +16,6 @@ typedef LGraph* pLGraph;
 typedef LNode*  pLNode;
 typedef LEdge*  pLEdge;
 
-
 #include "LNode.h"
 #include "LEdge.h"
 #include "LGraph.h"
@@ -26,5 +25,4 @@ typedef LEdge*  pLEdge;
 #define MEDIAN_OUT 0
 
 void LayoutTest();
-
 #endif

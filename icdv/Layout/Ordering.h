@@ -28,5 +28,4 @@ class Ordering {
         friend class LGraph;
 };
 
-
 #endif // LAYOUT_ORDERING_H

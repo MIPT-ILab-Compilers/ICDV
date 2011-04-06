@@ -68,7 +68,7 @@ void Run_Unit_Tests()
 int main(int argc, char **argv)
 {
 #ifdef DEBUG
-	Run_Unit_Tests();
+       Run_Unit_Tests();
 #endif
 
 	/* For now, it's just a QT test.
