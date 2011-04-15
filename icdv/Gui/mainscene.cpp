@@ -21,39 +21,6 @@
 #define default_view_x 10
 #define default_view_y 10
 
-LGraph * VisTest()
-{
-        LGraph * g = new LGraph();
-
-        int len = 10;
-        pLNode *p = new pLNode[len];
-
-        // Creating a new graph
-        for(int i = 0; i < len; i++) {
-                p[i] = (pLNode)g->AddNode();
-        }
-
-        // Performing some transformations
-        g->AddEdge(p[0],p[1]);
-        g->AddEdge(p[0],p[2]);
-        g->AddEdge(p[0],p[3]);
-        g->AddEdge(p[1],p[5]);
-        g->AddEdge(p[2],p[6]);
-        g->AddEdge(p[2],p[5]);
-        g->AddEdge(p[3],p[4]);
-        g->AddEdge(p[4],p[7]);
-        g->AddEdge(p[4],p[9]);
-        g->AddEdge(p[5],p[8]);
-        g->AddEdge(p[6],p[9]);
-        g->AddEdge(p[1],p[8]);
-        g->AddEdge(p[1],p[7]);
-        g->AddEdge(p[1],p[6]);
-        g->AddEdge(p[1],p[5]);
-        g->AddEdge(p[1],p[9]);
-
-        return g;
-}
-
 MainScene::MainScene(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainScene) {
@@ -110,6 +77,7 @@ bool MainScene::Save() {
     if (filename.isNull()) {
         return false;
      }
+
     QImage image(m_scene->width(), m_scene->height(),
                  QImage::Format_ARGB32_Premultiplied);
     image.fill(0xFFFFFF);
@@ -178,8 +146,14 @@ bool MainScene::SetGraph(LGraph * graph_to_set) {
             if (added_edges.find((*edge_iter)) == added_edges.end())
             {
                 added_edges[*edge_iter] = true;
-                buf_edge = new GEdge(nodes_map[(*edge_iter)->to()],
-                                     nodes_map[(*edge_iter)->from()]);
+
+                if (((pLEdge)(*edge_iter))->IsReverse() == false)
+                    buf_edge = new GEdge(nodes_map[(*edge_iter)->to()],
+                                         nodes_map[(*edge_iter)->from()]);
+                else
+                    buf_edge = new GEdge(nodes_map[(*edge_iter)->from()],
+                                         nodes_map[(*edge_iter)->to()]);
+
                 if (((pLNode)((*edge_iter)->to()))->IsDummy() ||
                         ((pLNode)((*edge_iter)->from()))->IsDummy())
                     buf_edge->setVisible(false);
