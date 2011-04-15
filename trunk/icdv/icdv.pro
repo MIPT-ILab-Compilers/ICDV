@@ -11,7 +11,9 @@ SOURCES += main.cpp \
     Layout/LGraph.cpp \
     Deriv.cpp \
     Gui/mainscene.cpp \
-    DumpParser.cpp
+    DumpParser.cpp \
+    Gui/GNode.cpp \
+    Gui/GEdge.cpp
 HEADERS += Deriv.h \
     Graph/Edge.h \
     Graph/Graph.h \
@@ -23,7 +25,9 @@ HEADERS += Deriv.h \
     Layout/LEdge.h \
     Layout/Layout.h \
     Gui/mainscene.h \
-    DumpParser.h
+    DumpParser.h \
+    Gui/GNode.h \
+    Gui/GEdge.h
 CONFIG( debug, debug|release ) {
     OBJECTS_DIR=Debug
     DEFINES += DEBUG\

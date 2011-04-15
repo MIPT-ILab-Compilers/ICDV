@@ -1,14 +1,25 @@
 #include <QFileDialog>
 #include <QString>
+#include <QResizeEvent>
+#include <QSize>
+#include <QImage>
 
 #include <map>
 
-#include "mainscene.h"
+#include "Gui/mainscene.h"
+#include "Gui/GNode.h"
+#include "Gui/GEdge.h"
 #include "ui_mainscene.h"
 #include "DumpParser.h"
-
+#include <stdio.h>
 #define node_heigh 10
 #define node_width 10
+
+#define default_view_height 600
+#define default_view_width 460
+
+#define default_view_x 10
+#define default_view_y 10
 
 LGraph * VisTest()
 {
@@ -48,18 +59,15 @@ MainScene::MainScene(QWidget *parent) :
     ui(new Ui::MainScene) {
     ui->setupUi(this);
     m_graph = new LGraph();
-    view = new QGraphicsScene(ui->CFGView->sceneRect());
+    m_scene = new QGraphicsScene(ui->CFGView->sceneRect());
 }
 
 MainScene::~MainScene() {
-    if (ui)
-        delete ui;
-
     if (m_graph)
         m_graph->Destroy();
 
-    if (view)
-        delete view;
+    if (m_scene)
+        delete m_scene;
 }
 
 bool MainScene::ZoomIn() {
@@ -90,6 +98,24 @@ bool MainScene::LoadDump() {
 }
 
 bool MainScene::Save() {
+    if (m_scene == NULL)
+        return false;
+    QString filename = QFileDialog::getSaveFileName(
+                this,
+                tr("Save image as"),
+                //QDir::currentPath(),
+                "/Users",
+                tr("All files (*.*)") );
+
+    if (filename.isNull()) {
+        return false;
+     }
+    QImage image(m_scene->width(), m_scene->height(),
+                 QImage::Format_ARGB32_Premultiplied);
+    image.fill(0xFFFFFF);
+    QPainter painter(&image);
+    m_scene->render(&painter);
+    image.save(filename);
     return true;
 }
 
@@ -110,12 +136,64 @@ bool MainScene::Resize(const QSize &iconSize) {
     ui->CFGView->resize(iconSize);
     return true;
 }
+
 // TODO(Lega): it needs to be tested on real dump.
 // TODO(Lega): add nodes information displaying.
+/*
+void MainScene::resizeEvent(QResizeEvent * resize) {
+    ui->CFGView->setGeometry(QRect(default_view_x,
+                                   default_view_y,
+                                   resize->width(),
+                                   resize->height()));
+}
+*/
+bool MainScene::SetGraph(LGraph * graph_to_set) {
+    if (m_scene == NULL)
+        return false;
+
+    map<pNode, GNode *> nodes_map;
+    GNode * buf_node;
+    GEdge * buf_edge;
+    for (list<pNode>::iterator node_iter = graph_to_set->nodes_list()->begin();
+         node_iter != graph_to_set->nodes_list()->end();
+         node_iter++)
+    {
+        buf_node = new GNode(ui->CFGView);
+        nodes_map[*node_iter] = buf_node;
+        m_scene->addItem(buf_node);
+        buf_node->setPos((*node_iter)->x, (*node_iter)->y);
+        if (((pLNode)(*node_iter))->IsDummy())
+            buf_node->setVisible(false);
+    }
+
+    map<pEdge, bool> added_edges;
+    for (list<pNode>::iterator node_iter = graph_to_set->nodes_list()->begin();
+         node_iter != graph_to_set->nodes_list()->end();
+         node_iter++)
+    {
+        for (list<pEdge>::iterator edge_iter = (*node_iter)->in_edges_list()->begin();
+             edge_iter != (*node_iter)->in_edges_list()->end();
+             edge_iter++)
+        {
+            if (added_edges.find((*edge_iter)) == added_edges.end())
+            {
+                added_edges[*edge_iter] = true;
+                buf_edge = new GEdge(nodes_map[(*edge_iter)->to()],
+                                     nodes_map[(*edge_iter)->from()]);
+                if (((pLNode)((*edge_iter)->to()))->IsDummy() ||
+                        ((pLNode)((*edge_iter)->from()))->IsDummy())
+                    buf_edge->setVisible(false);
+                m_scene->addItem(buf_edge);
+            }
+        }
+    }
+    return true;
+}
+
 bool MainScene::Draw() {
     ui->statusbar->showMessage("Draw started");
     if (ui->CFGView == NULL) {
-        printf("Cannot init QGraphicsView!\n");
+        ui->statusbar->showMessage("Cannot init QGraphicsView!\n");
         return false;
     }
 
@@ -124,46 +202,14 @@ bool MainScene::Draw() {
         return false;
     }
 
-    if (view == NULL)
-        view = new QGraphicsScene(ui->CFGView->sceneRect());
-
-    // It's a test version.
-    // TODO(Lega): make layout working with parser.
-    // m_graph = VisTest();
     m_graph->Layout();
 
-    map<pNode, bool> nodes_drawed;
-
-    for (list<pNode>::iterator iter = m_graph->nodes_list()->begin();
-         iter != m_graph->nodes_list()->end();
-         iter++)
-        if (((pLNode)(*iter))->IsDummy())
-            nodes_drawed[*iter] = false;
-        else
-            nodes_drawed[*iter] = true;
-
-    for (list<pEdge>::iterator iter = m_graph->edges_list()->begin();
-         iter != m_graph->edges_list()->end();
-         iter++) {
-
-        if (nodes_drawed[(*iter)->from()]) {
-            view->addEllipse((*iter)->from()->x-node_width/2, (*iter)->from()->y-node_heigh/2,
-                             node_width, node_heigh);
-            nodes_drawed[(*iter)->from()] = false;
-        }
-
-        if (nodes_drawed[(*iter)->to()]) {
-            view->addEllipse((*iter)->to()->x-node_width/2, (*iter)->to()->y-node_heigh/2,
-                             node_width, node_heigh);
-            nodes_drawed[(*iter)->to()] = false;
-        }
-
-        view->addLine((*iter)->from()->x, (*iter)->from()->y,
-                      (*iter)->to()->x, (*iter)->to()->y);
+    if (SetGraph(m_graph)) {
+        ui->CFGView->setScene(m_scene);
+        ui->CFGView->show();
+    } else {
+        return false;
     }
-
-    ui->CFGView->setScene(view);
-    ui->CFGView->show();
 
     return true;
 }
