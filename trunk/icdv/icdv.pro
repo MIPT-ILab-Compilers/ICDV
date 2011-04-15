@@ -13,7 +13,8 @@ SOURCES += main.cpp \
     Gui/mainscene.cpp \
     DumpParser.cpp \
     Gui/GNode.cpp \
-    Gui/GEdge.cpp
+    Gui/GEdge.cpp \
+    testing/test.cpp
 HEADERS += Deriv.h \
     Graph/Edge.h \
     Graph/Graph.h \

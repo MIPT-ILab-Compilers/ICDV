@@ -11,6 +11,7 @@ Edge::Edge(pNode from, pNode to):
 	assert(to);
 	assert(from->m_graph == to->m_graph);
 
+        reverse = false;
 	pGraph pg = from->m_graph;
 	assert(pg);
 
@@ -38,6 +39,8 @@ void Edge::Reverse(){
 	m_from->m_out_edges_list.push_back(this);
 	m_to->m_out_edges_list.remove(this);
 	m_from->m_in_edges_list.remove(this);
+
+        reverse = true;
 }
 
 void Edge::Dump() {

@@ -15,7 +15,13 @@ class Edge{
 protected:
 	/// Ctor
 	Edge(pNode from, pNode to);
+
+        // flag is true if we alredy revert this edge for layout.
+        bool reverse;
 public:
+        bool IsReverse() {
+            return reverse;
+        }
 
 	void Reverse();
 	/// Get m_graph
