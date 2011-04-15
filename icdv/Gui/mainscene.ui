@@ -236,6 +236,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>MainScene</sender>
+   <signal>destroyed()</signal>
+   <receiver>MainScene</receiver>
+   <slot>Exit()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>239</x>
+     <y>319</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>239</x>
+     <y>319</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>LoadDump()</slot>
