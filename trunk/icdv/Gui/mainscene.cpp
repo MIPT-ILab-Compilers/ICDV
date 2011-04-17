@@ -10,11 +10,11 @@
 
 #include <map>
 
-#include "Gui/mainscene.h"
-#include "Gui/GNode.h"
-#include "Gui/GEdge.h"
+#include "../Gui/mainscene.h"
+#include "../Gui/GNode.h"
+#include "../Gui/GEdge.h"
 #include "ui_mainscene.h"
-#include "DumpParser.h"
+#include "../DumpParser.h"
 #include <stdio.h>
 #define node_heigh 10
 #define node_width 10
@@ -178,7 +178,7 @@ bool MainScene::SetGraph(LGraph * graph_to_set) {
     {
         buf_node = new GNode(ui->CFGView, ((pLNode)(*node_iter))->IsDummy());
         nodes_map[*node_iter] = buf_node;
-        buf_node->setPos((*node_iter)->getX(), (*node_iter)->getY());
+        buf_node->setPos(((pLNode)(*node_iter))->getX(), ((pLNode)(*node_iter))->getY());
         if (((pLNode)(*node_iter))->IsDummy())
             buf_node->setVisible(false);
         m_scene->addItem(buf_node);

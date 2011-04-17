@@ -6,7 +6,7 @@
 #include <QSize>
 #include <QResizeEvent>
 
-#include "Layout/Layout.h"
+#include "../Layout/Layout.h"
 
 /// Class that's an implementation of gui.
 /**
