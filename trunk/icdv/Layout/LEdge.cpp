@@ -12,17 +12,14 @@ void LEdge::BreakLongEdge(){
         pLNode prevnode = ((pLNode) from());
         pLNode newnode;
 
-        if (reverse)
-            printf("LEdge.cpp 16\n");
-
         ///Adding n-1 nodes to do all rank differences equal 1
         for (int i = 1; i < n; i++){
                 newnode = (pLNode) graph()->AddNode();
 		newnode->dummy = true;
 		newnode->rank = (((pLNode) from())->Rank()) + i;
-                graph()->AddEdge(prevnode, newnode, reverse);
+                graph()->AddEdge(prevnode, newnode);
 		prevnode = newnode;
         }
-        graph()->AddEdge(prevnode, to(), reverse);
+        graph()->AddEdge(prevnode, to());
         graph()->DeleteEdge(from(), to());
 }

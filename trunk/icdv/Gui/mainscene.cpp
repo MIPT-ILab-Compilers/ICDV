@@ -25,6 +25,52 @@
 #define default_view_x 10
 #define default_view_y 10
 
+pLGraph VisTest()
+{
+        printf("\nLayout test started..\n");
+
+        pLGraph g = new LGraph();
+
+        int len = 10;
+        pLNode *p = new pLNode[len];
+
+        // Creating a new graph
+        for(int i = 0; i < len; i++) {
+                p[i] = (pLNode)g->AddNode();
+        }
+
+        // Performing some transformations
+        g->AddEdge(p[0],p[1]);
+        g->AddEdge(p[0],p[2]);
+        g->AddEdge(p[0],p[3]);
+        g->AddEdge(p[1],p[5]);
+        g->AddEdge(p[2],p[6]);
+        g->AddEdge(p[2],p[5]);
+        g->AddEdge(p[3],p[4]);
+        g->AddEdge(p[4],p[7]);
+        g->AddEdge(p[4],p[9]);
+        g->AddEdge(p[5],p[8]);
+        g->AddEdge(p[6],p[9]);
+        g->AddEdge(p[1],p[8]);
+        g->AddEdge(p[1],p[7]);
+        g->AddEdge(p[1],p[6]);
+        g->AddEdge(p[1],p[5]);
+        g->AddEdge(p[1],p[9]);
+
+        //g->Layout();
+        //g.Dump();
+
+        //printf("maxrank = %i\n",g.getMaxrank());
+
+        // Clean up
+        //g.Destroy();
+        //delete []p;
+
+        //printf("Layout test passed!\n");
+        return g;
+}
+
+
 MainScene::MainScene(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainScene) {
@@ -155,14 +201,9 @@ bool MainScene::SetGraph(LGraph * graph_to_set) {
                     buf_edge = new GEdge(nodes_map[(*edge_iter)->to()],
                                          nodes_map[(*edge_iter)->from()]);
                 else
-                    if (!((pLNode)nodes_map[(*edge_iter)->from()])->IsDummy() &&
-                            ((pLNode)nodes_map[(*edge_iter)->to()])->IsDummy())
-
-                        buf_edge = new GEdge(nodes_map[(*edge_iter)->from()],
+                    buf_edge = new GEdge(nodes_map[(*edge_iter)->from()],
                                              nodes_map[(*edge_iter)->to()]);
-                    else
-                        buf_edge = new GEdge(nodes_map[(*edge_iter)->to()],
-                                         nodes_map[(*edge_iter)->from()]);
+
                 m_scene->addItem(buf_edge);
             }
         }
@@ -182,6 +223,7 @@ bool MainScene::Draw() {
         return false;
     }
 
+    m_graph = VisTest();
     m_graph->Layout();
 
     if (SetGraph(m_graph)) {

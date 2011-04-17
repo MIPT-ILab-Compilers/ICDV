@@ -121,14 +121,12 @@ void GEdge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *
                                                    cos(angle - Pi / 3) * arrowSize);
     QPointF destArrowP2 = destPoint + QPointF(sin(angle - Pi + Pi / 3) * arrowSize,
                                                    cos(angle - Pi + Pi / 3) * arrowSize);
+
     painter->setBrush(Qt::black);
 
     if (is_to_dummy_node == false)
         if (reverse == false)
             painter->drawPolygon(QPolygonF() << line.p1() << sourceArrowP1 << sourceArrowP2);
         else
-            painter->drawPolygon(QPolygonF() << line.p2() << destArrowP1 << destArrowP2);
-    else
-        if (reverse)
             painter->drawPolygon(QPolygonF() << line.p2() << destArrowP1 << destArrowP2);
 }
