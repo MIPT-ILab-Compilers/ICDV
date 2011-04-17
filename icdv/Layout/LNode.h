@@ -30,6 +30,10 @@ private:
 
 	bool dummy;
 
+	// Coordinates for drawing
+	double x;
+	double y;
+
 public:
         // True, if it's an entry node.
 	bool entry;
@@ -54,6 +58,9 @@ public:
         bool IsDummy() {
             return dummy;
         }
+
+		double getX() {return x;}
+        double getY() {return y;}
 
 	/// Calculate node rank
 	int Rank();

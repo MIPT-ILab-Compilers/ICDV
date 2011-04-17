@@ -23,6 +23,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				Description=""
+				CommandLine=""
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -265,6 +267,70 @@
 					RelativePath=".\Layout\Ordering.h"
 					>
 				</File>
+			</Filter>
+			<Filter
+				Name="Gui"
+				>
+				<File
+					RelativePath=".\Gui\GEdge.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Gui\GEdge.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Gui\GNode.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Gui\GNode.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Gui\mainscene.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Gui\mainscene.h"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Running MOC for mainscene"
+							CommandLine="moc GUI/mainscene.h -o GUI/moc_mainscene.cpp"
+							Outputs="GUI/moc_mainscene.cpp"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Gui\mainscene.ui"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Compiling UI Forms: mainscene.ui"
+							CommandLine="uic Gui/mainscene.ui -o Gui/ui_mainscene.h"
+							Outputs="Gui/ui_mainscene.h"
+						/>
+					</FileConfiguration>
+				</File>
+				<Filter
+					Name="Generated files"
+					>
+					<File
+						RelativePath=".\Gui\moc_mainscene.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Gui\ui_mainscene.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 	</Files>

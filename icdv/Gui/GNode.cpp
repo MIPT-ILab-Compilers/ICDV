@@ -8,8 +8,8 @@
 #include <QStyleOption>
 #include <QStaticText>
 
-#include "Gui/GEdge.h"
-#include "Gui/GNode.h"
+#include "../Gui/GEdge.h"
+#include "../Gui/GNode.h"
 
 GNode::GNode(QGraphicsView *graphWidget, bool dummy)
     //: graph(graphWidget)

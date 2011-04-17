@@ -17,9 +17,6 @@ class Node{
 protected:
 	Node(pGraph graph);
 
-        // Coordinates for drawing
-        double x;
-        double y;
 public:
 	/// Get node id
 	int id() { return m_id;}
@@ -31,9 +28,6 @@ public:
 	list<pEdge> * out_edges_list(){
 		return &m_out_edges_list;
 	}
-
-        int getX() {return x;}
-        int getY() {return y;}
 
 	/// Print info about the node
 	virtual void Dump();
