@@ -1,3 +1,7 @@
+/**
+ * @file: GEdge.cpp
+ */
+
 #include <QPainter>
 
 #include "GEdge.h"
@@ -8,10 +12,11 @@
 static const double Pi = 3.14159265358979323846264338327950288419717;
 static double TwoPi = 2.0 * Pi;
 
-GEdge::GEdge(GNode *sourceNode, GNode *destNode)
-    : arrowSize(10)
+GEdge::GEdge(GNode *sourceNode, GNode *destNode) : arrowSize(10)
 {
     setAcceptedMouseButtons(0);
+    is_from_dummy_node = sourceNode->IsDummy();
+    is_to_dummy_node = destNode->IsDummy();
     source = sourceNode;
     dest = destNode;
     source->addEdge(this);
@@ -34,17 +39,27 @@ void GEdge::adjust()
     if (!source || !dest)
         return;
 
-    QLineF line(mapFromItem(source, 0, 0), mapFromItem(dest, 0, 0));
-    qreal length = line.length();
+    QLineF * line = new QLineF (source->x(), source->y(),
+                                dest->x(), dest->y());
+
+    qreal length = line->length();
 
     prepareGeometryChange();
 
     if (length > qreal(20.)) {
-        QPointF edgeOffset((line.dx() * 10) / length, (line.dy() * 10) / length);
-        sourcePoint = line.p1() + edgeOffset;
-        destPoint = line.p2() - edgeOffset;
+        QPointF edgeOffset((line->dx() * 10) / length, (line->dy() * 10) / length);
+
+        if (is_from_dummy_node)
+            sourcePoint = line->p1();
+        else
+            sourcePoint = line->p1() + edgeOffset;
+
+        if (is_to_dummy_node)
+            destPoint = line->p2();
+        else
+            destPoint = line->p2() - edgeOffset;
     } else {
-        sourcePoint = destPoint = line.p1();
+        sourcePoint = destPoint = line->p1();
     }
 }
 
@@ -56,10 +71,26 @@ QRectF GEdge::boundingRect() const
     qreal penWidth = 1;
     qreal extra = (penWidth + arrowSize) / 2.0;
 
-    return QRectF(sourcePoint, QSizeF(destPoint.x() - sourcePoint.x(),
-                                      destPoint.y() - sourcePoint.y()))
-        .normalized()
-        .adjusted(-extra, -extra, extra, extra);
+    if (is_from_dummy_node)
+        return QRectF(sourcePoint, QSizeF(destPoint.x() - sourcePoint.x(),
+                                          destPoint.y() - sourcePoint.y()))
+            .normalized()
+            .adjusted(0, 0, extra, extra);
+    else if (is_to_dummy_node)
+        return QRectF(sourcePoint, QSizeF(destPoint.x() - sourcePoint.x(),
+                                          destPoint.y() - sourcePoint.y()))
+            .normalized()
+            .adjusted(-extra, -extra, 0, 0);
+    else if (is_from_dummy_node && is_to_dummy_node)
+        return QRectF(sourcePoint, QSizeF(destPoint.x() - sourcePoint.x(),
+                                          destPoint.y() - sourcePoint.y()))
+            .normalized()
+            .adjusted(0, 0, 0, 0);
+    else
+        return QRectF(sourcePoint, QSizeF(destPoint.x() - sourcePoint.x(),
+                                          destPoint.y() - sourcePoint.y()))
+            .normalized()
+            .adjusted(-extra, -extra, extra, extra);
 }
 
 void GEdge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
@@ -81,16 +112,23 @@ void GEdge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *
         angle = TwoPi - angle;
 
     QPointF sourceArrowP1 = sourcePoint + QPointF(sin(angle + Pi / 3) * arrowSize,
-                                                  cos(angle + Pi / 3) * arrowSize);
+                                                      cos(angle + Pi / 3) * arrowSize);
     QPointF sourceArrowP2 = sourcePoint + QPointF(sin(angle + Pi - Pi / 3) * arrowSize,
                                                   cos(angle + Pi - Pi / 3) * arrowSize);
-/*
+
+
     QPointF destArrowP1 = destPoint + QPointF(sin(angle - Pi / 3) * arrowSize,
-                                              cos(angle - Pi / 3) * arrowSize);
+                                                   cos(angle - Pi / 3) * arrowSize);
     QPointF destArrowP2 = destPoint + QPointF(sin(angle - Pi + Pi / 3) * arrowSize,
-                                              cos(angle - Pi + Pi / 3) * arrowSize);
-*/
+                                                   cos(angle - Pi + Pi / 3) * arrowSize);
     painter->setBrush(Qt::black);
-    painter->drawPolygon(QPolygonF() << line.p1() << sourceArrowP1 << sourceArrowP2);
-    // painter->drawPolygon(QPolygonF() << line.p2() << destArrowP1 << destArrowP2);
+
+    if (is_to_dummy_node == false)
+        if (reverse == false)
+            painter->drawPolygon(QPolygonF() << line.p1() << sourceArrowP1 << sourceArrowP2);
+        else
+            painter->drawPolygon(QPolygonF() << line.p2() << destArrowP1 << destArrowP2);
+    else
+        if (reverse)
+            painter->drawPolygon(QPolygonF() << line.p2() << destArrowP1 << destArrowP2);
 }

@@ -7,14 +7,14 @@
 
 
 void LGraph::Layout(){
-	
-	list<pEdge> ReverseEdges;
+
+        list<pEdge> ReverseEdges;
 	FindReverseEdges(ReverseEdges);
 	ReverseReverseEdges(ReverseEdges);
-	InitRank();	
-	list<pEdge> LongEdges;
-	FindLongEdges(LongEdges);
-	AddDummyNodes(LongEdges);
+        InitRank();
+        list<pEdge> LongEdges;
+        FindLongEdges(LongEdges);
+        AddDummyNodes(LongEdges);
 	Ordering order;
         order.order_vector = InitOrder();
         // Number of iterations.
@@ -77,7 +77,7 @@ void LGraph::FindLongEdges(list<pEdge> &LongEdges){
 			if (((pLNode) (*edge_iter)->to())->Rank() - 
 				((pLNode) (*edge_iter)->from())->Rank() > 1)
 				LongEdges.push_back(*edge_iter);
-	}			
+        }
 }
 
 void LGraph::AddDummyNodes(list<pEdge> &LongEdges){
@@ -254,6 +254,6 @@ pLNode LGraph::AddNode()
 
 pLEdge LGraph::AddEdge(pNode from, pNode to)
 {
-	pLEdge new_edge = new LEdge((pLNode)from,(pLNode)to);
+        pLEdge new_edge = new LEdge((pLNode)from,(pLNode)to);
 	return new_edge;
 }

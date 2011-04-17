@@ -1,14 +1,20 @@
+/**
+ * @file: GNode.cpp
+ */
+
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
 #include <QPainter>
 #include <QStyleOption>
+#include <QStaticText>
 
 #include "Gui/GEdge.h"
 #include "Gui/GNode.h"
 
-GNode::GNode(QGraphicsView *graphWidget)
+GNode::GNode(QGraphicsView *graphWidget, bool dummy)
     //: graph(graphWidget)
 {
+    is_dummy = dummy;
     setFlag(ItemIsMovable);
     setFlag(ItemSendsGeometryChanges);
     setCacheMode(DeviceCoordinateCache);
@@ -54,16 +60,27 @@ void GNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
     painter->setPen(Qt::NoPen);
     painter->setBrush(Qt::darkGray);
     painter->drawEllipse(-7, -7, 20, 20);
+    painter->drawStaticText(y() - 10, x() - 10, QStaticText("Node") );
 
     QRadialGradient gradient(-3, -3, 10);
     if (option->state & QStyle::State_Sunken) {
         gradient.setCenter(3, 3);
         gradient.setFocalPoint(3, 3);
-        gradient.setColorAt(1, QColor(Qt::yellow).light(120));
-        gradient.setColorAt(0, QColor(Qt::darkYellow).light(120));
+        if (is_dummy) {
+            gradient.setColorAt(1, QColor(Qt::red).light(120));
+            gradient.setColorAt(0, QColor(Qt::darkRed).light(120));
+        } else {
+            gradient.setColorAt(1, QColor(Qt::yellow).light(120));
+            gradient.setColorAt(0, QColor(Qt::darkYellow).light(120));
+        }
     } else {
-        gradient.setColorAt(0, Qt::yellow);
-        gradient.setColorAt(1, Qt::darkYellow);
+        if (is_dummy) {
+            gradient.setColorAt(0, Qt::red);
+            gradient.setColorAt(1, Qt::darkRed);
+        } else {
+            gradient.setColorAt(0, Qt::yellow);
+            gradient.setColorAt(1, Qt::darkYellow);
+        }
     }
     painter->setBrush(gradient);
     painter->setPen(QPen(Qt::black, 0));

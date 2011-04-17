@@ -1,3 +1,7 @@
+/**
+ * @file: GNode.h
+ */
+
 #ifndef NODE_H
 #define NODE_H
 
@@ -5,6 +9,7 @@
 #include <QGraphicsView>
 #include <QList>
 
+class LNode;
 class GEdge;
 class GraphWidget;
 class QGraphicsSceneMouseEvent;
@@ -12,7 +17,7 @@ class QGraphicsSceneMouseEvent;
 class GNode : public QGraphicsItem
 {
 public:
-    GNode(QGraphicsView *graphWidget);
+    GNode(QGraphicsView *graphWidget, bool dummy);
 
     void addEdge(GEdge *edge);
     QList<GEdge *> edges() const;
@@ -27,6 +32,14 @@ public:
     QPainterPath shape() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
+    bool IsDummy () {
+        return is_dummy;
+    };
+
+    int ID() {
+        return id;
+    };
+
 protected:
     //QVariant itemChange(GraphicsItemChange change, const QVariant &value);
 
@@ -37,6 +50,10 @@ private:
     QList<GEdge *> edgeList;
     QPointF newPos;
     GraphWidget *graph;
+
+    // true, if it isn't visible node.
+    bool is_dummy;
+    int id;
 };
 
 #endif

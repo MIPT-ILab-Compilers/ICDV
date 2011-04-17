@@ -84,7 +84,7 @@ public:
 	 */	 
 	vector< vector<pLNode> > InitOrder();
 	virtual pLNode AddNode();
-	virtual pLEdge AddEdge(pNode from, pNode to);
+        virtual pLEdge AddEdge(pNode from, pNode to);
 	virtual void FreeNode(pNode p);
 	virtual void FreeEdge(pEdge p);
 
