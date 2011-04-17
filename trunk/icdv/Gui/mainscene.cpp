@@ -223,7 +223,6 @@ bool MainScene::Draw() {
         return false;
     }
 
-    m_graph = VisTest();
     m_graph->Layout();
 
     if (SetGraph(m_graph)) {
