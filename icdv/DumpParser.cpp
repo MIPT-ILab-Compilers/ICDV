@@ -54,7 +54,7 @@ int ParseDump(LGraph * plGraph, const QString & filename) {
 
 	int pos = 0;
 	LNode *lNodeCur;
-        QRegExp rgBBlk; // WTF?
+        QRegExp rgBBlk; // GerExp for parse Basic BLocK (BBlck)
 
 	rgBBlk.setMinimal(true);
 	rgBBlk.setPatternSyntax(QRegExp::RegExp2);
@@ -64,21 +64,11 @@ int ParseDump(LGraph * plGraph, const QString & filename) {
 	while((pos = rgBBlk.indexIn(map, pos)) != -1) {
 		pos += rgBBlk.matchedLength() - 6;
 		lNodeCur = plGraph->AddNode();
-
-                // printf("\nBBlock #%d:\n----------------\n", lNodeCur->id());
+		lNodeCur->SetContent(rgBBlk.cap(9));
 
 		ParseDumpNumbs(rgBBlk.cap(4), lNodeCur->m_preds_lst);
 		ParseDumpNumbs(rgBBlk.cap(5), lNodeCur->m_succs_lst);
 		ParseDumpNumbs(rgBBlk.cap(6), lNodeCur->m_exec_lst);
-/*
-		for (int i = 1; i < rgBBlk.captureCount(); i++)
-			printf("%d - %s\n", i, rgBBlk.cap(i).toAscii().data());
-
-		printf("BBLOCK %u:\n", rgBBlk.cap(2).toUInt());
-		printf("preds: %s", rgBBlk.cap(4).toAscii().data());
-		printf("succs: %s", rgBBlk.cap(5).toAscii().data());
-		printf("exec: %s\n", rgBBlk.cap(6).toAscii().data());
-*/
 	}
 
 	list<pNode> *lstNodes = plGraph->nodes_list();
@@ -102,7 +92,6 @@ int ParseDump(LGraph * plGraph, const QString & filename) {
 			for (itNodesTmp = lstNodes->begin(); itNodesTmp != itNodesTmpEnd; itNodesTmp++) {
 				if ((pLNode(*itNodesTmp))->id() == *itAccessor) {
 					plGraph->AddEdge(*itNodesTmp, *itNodes);
-                                        // printf("preds: %d - > %d\n", (pLNode(*itNodesTmp))->id(), (pLNode(*itNodes))->id());
 					break;
 				}
 			}
