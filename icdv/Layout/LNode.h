@@ -33,12 +33,23 @@ private:
 public:
         // True, if it's an entry node.
 	bool entry;
+
         // Number
 	unsigned int uBlkId;
 	list<unsigned int> m_preds_lst;
 	list<unsigned int> m_succs_lst;
 	list<unsigned int> m_exec_lst;
 	list<unsigned int> m_prob_lst;
+
+        const QString * Content() {
+            return &content;
+        }
+
+
+        void SetContent (const QString &source) {
+            content.clear();
+            content += source;
+        }
 
         bool IsDummy() {
             return dummy;
