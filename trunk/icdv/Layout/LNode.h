@@ -16,6 +16,9 @@
  *      Median() to calculate median
  *      IsAdjacentToNode is test for adjesent of 2 nodes
  */
+
+#include <QString>
+
 class LNode: public Node {
 private:
 	int rank;
@@ -40,15 +43,12 @@ public:
         bool IsDummy() {
             return dummy;
         }
-public:
+
 	/// Calculate node rank
 	int Rank();
 	
 	int getMedian() {return median;}
 	int getPos()    {return pos;}
-
-        int getX() {return x;}
-        int getY() {return y;}
 
 	/** Calculate weighed median for the node.
 	  * The median value of a vertex is defined as the median position of the adjacent vertices if that
@@ -73,6 +73,10 @@ public:
 	}
         friend class LEdge;
         friend class LGraph;
+
+protected:
+        // Content of basic block.
+        QString content;
 };
 
 #endif

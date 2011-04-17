@@ -121,7 +121,6 @@ int ParseDump(LGraph * plGraph, const QString & filename) {
 			for (itNodesTmp = lstNodes->begin(); itNodesTmp != itNodesTmpEnd; itNodesTmp++) {
 				if ((pLNode(*itNodesTmp))->id() == *itAccessor) {
 					plGraph->AddEdge(*itNodes, *itNodesTmp);
-                                        // printf("succs: %d - > %d\n", (pLNode(*itNodes))->id(), (pLNode(*itNodesTmp))->id());
 					break;
 				}
 			}

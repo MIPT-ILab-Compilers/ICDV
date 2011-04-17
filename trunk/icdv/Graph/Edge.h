@@ -23,6 +23,10 @@ public:
             return reverse;
         }
 
+        void SetReverse(bool is_reverse) {
+            reverse = is_reverse;
+        }
+
 	void Reverse();
 	/// Get m_graph
 	pGraph graph() {return m_graph;}

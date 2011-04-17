@@ -1,33 +1,63 @@
+/**
+ * @file: GEdge.h
+ */
 #ifndef EDGE_H
- #define EDGE_H
+#define EDGE_H
 
- #include <QGraphicsItem>
+#include <QGraphicsItem>
 
- class GNode;
+class GNode;
 
- class GEdge : public QGraphicsItem
- {
- public:
-     GEdge(GNode *sourceNode, GNode *destNode);
+class GEdge : public QGraphicsItem
+{
+public:
+    GEdge(GNode *sourceNode, GNode *destNode);
 
-     GNode *sourceNode() const;
-     GNode *destNode() const;
+    GNode *sourceNode() const;
+    GNode *destNode() const;
 
-     void adjust();
+    void adjust();
 
-     enum { Type = UserType + 2 };
-     int type() const { return Type; }
+    enum { Type = UserType + 2 };
+    int type() const { return Type; }
 
- protected:
-     QRectF boundingRect() const;
-     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    void SetFromDummy(bool from_dummy) {
+        is_from_dummy_node = from_dummy;
+    }
 
- private:
-     GNode *source, *dest;
+    bool FromDummy() {
+        return is_from_dummy_node;
+    }
 
-     QPointF sourcePoint;
-     QPointF destPoint;
-     qreal arrowSize;
- };
+    bool ToDummy() {
+        return is_to_dummy_node;
+    }
 
- #endif
+    void SetToDummy(bool to_dummy) {
+        is_to_dummy_node = to_dummy;
+    }
+
+    void SetReverse(bool is_reverse) {
+        reverse = is_reverse;
+    }
+
+    bool Reverse () {
+        return reverse;
+    }
+
+protected:
+    QRectF boundingRect() const;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+               QWidget *widget);
+
+private:
+    bool reverse;
+    bool is_from_dummy_node;
+    bool is_to_dummy_node;
+    GNode *source, *dest;
+    QPointF sourcePoint;
+    QPointF destPoint;
+    qreal arrowSize;
+};
+
+#endif

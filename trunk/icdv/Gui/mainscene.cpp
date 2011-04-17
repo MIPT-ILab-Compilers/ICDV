@@ -1,5 +1,9 @@
 #include <QFileDialog>
 #include <QString>
+/**
+ * @file: mainscene.cpp
+ */
+
 #include <QResizeEvent>
 #include <QSize>
 #include <QImage>
@@ -126,12 +130,12 @@ bool MainScene::SetGraph(LGraph * graph_to_set) {
          node_iter != graph_to_set->nodes_list()->end();
          node_iter++)
     {
-        buf_node = new GNode(ui->CFGView);
+        buf_node = new GNode(ui->CFGView, ((pLNode)(*node_iter))->IsDummy());
         nodes_map[*node_iter] = buf_node;
-        m_scene->addItem(buf_node);
-        buf_node->setPos((*node_iter)->x, (*node_iter)->y);
+        buf_node->setPos((*node_iter)->getX(), (*node_iter)->getY());
         if (((pLNode)(*node_iter))->IsDummy())
             buf_node->setVisible(false);
+        m_scene->addItem(buf_node);
     }
 
     map<pEdge, bool> added_edges;
@@ -151,12 +155,14 @@ bool MainScene::SetGraph(LGraph * graph_to_set) {
                     buf_edge = new GEdge(nodes_map[(*edge_iter)->to()],
                                          nodes_map[(*edge_iter)->from()]);
                 else
-                    buf_edge = new GEdge(nodes_map[(*edge_iter)->from()],
-                                         nodes_map[(*edge_iter)->to()]);
+                    if (!((pLNode)nodes_map[(*edge_iter)->from()])->IsDummy() &&
+                            ((pLNode)nodes_map[(*edge_iter)->to()])->IsDummy())
 
-                if (((pLNode)((*edge_iter)->to()))->IsDummy() ||
-                        ((pLNode)((*edge_iter)->from()))->IsDummy())
-                    buf_edge->setVisible(false);
+                        buf_edge = new GEdge(nodes_map[(*edge_iter)->from()],
+                                             nodes_map[(*edge_iter)->to()]);
+                    else
+                        buf_edge = new GEdge(nodes_map[(*edge_iter)->to()],
+                                         nodes_map[(*edge_iter)->from()]);
                 m_scene->addItem(buf_edge);
             }
         }
