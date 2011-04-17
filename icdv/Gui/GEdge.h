@@ -37,14 +37,6 @@ public:
         is_to_dummy_node = to_dummy;
     }
 
-    void SetReverse(bool is_reverse) {
-        reverse = is_reverse;
-    }
-
-    bool Reverse () {
-        return reverse;
-    }
-
 protected:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,

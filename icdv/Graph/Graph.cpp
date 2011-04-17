@@ -64,10 +64,9 @@ pNode Graph::AddNode()
 	return new_node;
 }
 
-pEdge Graph::AddEdge(pNode from, pNode to, bool is_reverse)
+pEdge Graph::AddEdge(pNode from, pNode to)
 {
         pEdge new_edge = new Edge(from,to);
-        new_edge->SetReverse(is_reverse);
 	return new_edge;
 }
 
