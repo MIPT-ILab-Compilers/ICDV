@@ -52,7 +52,7 @@ protected:
 
     QGraphicsScene * m_scene;
 protected slots:
-    // void MainScene::resizeEvent(QResizeEvent * resize).
+    void resizeEvent(QResizeEvent * resize);
     // void DrawToScene(LGraph * graph);
 
 private:
