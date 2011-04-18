@@ -37,10 +37,10 @@ public:
     };
 
 protected:
-    //QVariant itemChange(GraphicsItemChange change, const QVariant &value);
+    // QVariant itemChange(GraphicsItemChange change, const QVariant &value);
 
-    //void mousePressEvent(QGraphicsSceneMouseEvent *event);
-    //void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+    // void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    // void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
 private:
     QList<GEdge *> edgeList;

@@ -124,9 +124,9 @@ void GEdge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *
 
     painter->setBrush(Qt::black);
 
-    if (is_to_dummy_node == false)
+    if (is_to_dummy_node == true && is_from_dummy_node == false)
         if (reverse == false)
-            painter->drawPolygon(QPolygonF() << line.p1() << sourceArrowP1 << sourceArrowP2);
-        else
-            painter->drawPolygon(QPolygonF() << line.p2() << destArrowP1 << destArrowP2);
+           painter->drawPolygon(QPolygonF() << line.p1() << sourceArrowP1 << sourceArrowP2);
+    if (is_to_dummy_node == false && is_from_dummy_node == false)
+        painter->drawPolygon(QPolygonF() << line.p1() << sourceArrowP1 << sourceArrowP2);
 }
