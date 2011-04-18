@@ -6,15 +6,17 @@
 
 #include "GEdge.h"
 #include "GNode.h"
+#include "mainscene.h"
 
 #include <math.h>
+#include <stdio.h>
 
 static const double Pi = 3.14159265358979323846264338327950288419717;
 static double TwoPi = 2.0 * Pi;
 
 GEdge::GEdge(GNode *sourceNode, GNode *destNode) : arrowSize(10)
 {
-    setAcceptedMouseButtons(0);
+    //setAcceptedMouseButtons(1);
     is_from_dummy_node = sourceNode->IsDummy();
     is_to_dummy_node = destNode->IsDummy();
     source = sourceNode;
@@ -22,6 +24,7 @@ GEdge::GEdge(GNode *sourceNode, GNode *destNode) : arrowSize(10)
     source->addEdge(this);
     dest->addEdge(this);
     adjust();
+    pressed = false;
 }
 
 GNode *GEdge::sourceNode() const
@@ -103,7 +106,11 @@ void GEdge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *
         return;
 
     // Draw the line itself.
-    painter->setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+    if (pressed)
+        painter->setPen(QPen(Qt::red, 1, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+    else
+        painter->setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+
     painter->drawLine(line);
 
     // Draw the arrows.
@@ -115,18 +122,21 @@ void GEdge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *
                                                       cos(angle + Pi / 3) * arrowSize);
     QPointF sourceArrowP2 = sourcePoint + QPointF(sin(angle + Pi - Pi / 3) * arrowSize,
                                                   cos(angle + Pi - Pi / 3) * arrowSize);
-
-
-    QPointF destArrowP1 = destPoint + QPointF(sin(angle - Pi / 3) * arrowSize,
-                                                   cos(angle - Pi / 3) * arrowSize);
-    QPointF destArrowP2 = destPoint + QPointF(sin(angle - Pi + Pi / 3) * arrowSize,
-                                                   cos(angle - Pi + Pi / 3) * arrowSize);
-
-    painter->setBrush(Qt::black);
+    if (pressed)
+        painter->setBrush(Qt::red);
+    else
+        painter->setBrush(Qt::black);
 
     if (is_to_dummy_node == true && is_from_dummy_node == false)
         if (reverse == false)
            painter->drawPolygon(QPolygonF() << line.p1() << sourceArrowP1 << sourceArrowP2);
     if (is_to_dummy_node == false && is_from_dummy_node == false)
         painter->drawPolygon(QPolygonF() << line.p1() << sourceArrowP1 << sourceArrowP2);
+}
+void GEdge::mousePressEvent(QGraphicsSceneMouseEvent *event) {
+    pressed = !pressed;
+    printf("GEdge.cpp 133\n");
+    update();
+    QGraphicsItem::mousePressEvent(event);
+    // m_widget->Redraw();
 }

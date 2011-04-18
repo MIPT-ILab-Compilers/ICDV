@@ -7,6 +7,7 @@
 #include <QGraphicsItem>
 
 class GNode;
+class MainScene;
 
 class GEdge : public QGraphicsItem
 {
@@ -41,8 +42,12 @@ protected:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                QWidget *widget);
+    // TODO(Lega): add right highlight of long edges.
+    void mousePressEvent(QGraphicsSceneMouseEvent *event);
 
 private:
+    MainScene * m_widget;
+    bool pressed;
     bool reverse;
     bool is_from_dummy_node;
     bool is_to_dummy_node;
