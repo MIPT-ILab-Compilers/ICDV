@@ -33,6 +33,8 @@ public:
     explicit MainScene(QWidget *parent = 0, const QString * filename = 0);
     ~MainScene();
 
+    void Redraw();
+
 public slots:
     bool LoadDump();
     bool Save();

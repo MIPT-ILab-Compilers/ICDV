@@ -109,6 +109,11 @@ bool MainScene::ZoomOut() {
     return true;
 }
 
+void MainScene::Redraw() {
+    ui->CFGView->setScene(m_scene);
+    ui->CFGView->show();
+}
+
 bool MainScene::LoadDump() {
     QString filename = QFileDialog::getOpenFileName(
                 this,
