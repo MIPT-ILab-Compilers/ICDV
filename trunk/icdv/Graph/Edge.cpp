@@ -44,7 +44,7 @@ void Edge::Reverse(){
 }
 
 void Edge::Dump() {
-	printf("Edge %d: %d-->%d\n", m_id, m_from->m_id, m_to->m_id);
+	printf("Edge %d: %d-->%d rev= %d\n", m_id, m_from->m_id, m_to->m_id, reverse);
 };
 
 void Edge::Print() {
