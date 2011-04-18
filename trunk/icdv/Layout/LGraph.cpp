@@ -9,12 +9,13 @@
 void LGraph::Layout(){
 
         list<pEdge> ReverseEdges;
-	FindReverseEdges(ReverseEdges);
+        FindReverseEdges(ReverseEdges);
 	ReverseReverseEdges(ReverseEdges);
         InitRank();
         list<pEdge> LongEdges;
         FindLongEdges(LongEdges);
         AddDummyNodes(LongEdges);
+        ReverseEdges.clear();
 	Ordering order;
         order.order_vector = InitOrder();
         // Number of iterations.

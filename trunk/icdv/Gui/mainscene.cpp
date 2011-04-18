@@ -176,7 +176,7 @@ bool MainScene::SetGraph(LGraph * graph_to_set) {
          node_iter != graph_to_set->nodes_list()->end();
          node_iter++)
     {
-        buf_node = new GNode(ui->CFGView, ((pLNode)(*node_iter))->IsDummy());
+        buf_node = new GNode(ui->CFGView, ((pLNode)(*node_iter))->IsDummy(), (*node_iter)->id());
         nodes_map[*node_iter] = buf_node;
         buf_node->setPos(((pLNode)(*node_iter))->getX(), ((pLNode)(*node_iter))->getY());
         if (((pLNode)(*node_iter))->IsDummy())
