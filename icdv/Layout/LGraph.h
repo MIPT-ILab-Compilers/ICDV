@@ -52,9 +52,9 @@ public:
 
         /// Init coordiates for each node.
         void InitCoordinates(Ordering order,
-                             int normalwide = 30,
-                             int dummywide = 10,
-                             int vertical_size = 50);
+                             int normalwide = 50,
+                             int dummywide = 25,
+                             int vertical_size = 80);
 
 	/**
 	 * The weighted median heuristic for reducing edge crossings.
@@ -62,14 +62,14 @@ public:
 	 * vertices on the previous rank. Then, the vertices in the rank are 
 	 * sorted by their medians.
 	 */
-	void WeightedMedianHeuristic(Ordering *order, int iter);
+        void WeightedMedianHeuristic(Ordering *order, int iter);
 
 	/**
 	 * The transposition heuristic for reducing edge crossings.
 	 * Transpose repeatedly exchanges adjacent vertices on the 
 	 * same rank if this decreases the number of crossings.
 	 */
-        void Transpose(Ordering *order);//, vector< vector<pLEdge> > *edge_order);
+        void Transpose(Ordering *order, int max);
 	
 	/// Calculate all edges crossings in the whole graph.
 	int countCrossing(Ordering order);
