@@ -28,6 +28,27 @@
 #define default_view_x 10
 #define default_view_y 10
 
+pLGraph VisTest2()
+{
+        pLGraph g = new LGraph();
+
+        int len = 5;
+        pLNode *p = new pLNode[len];
+
+        // Creating a new graph
+        for(int i = 0; i < len; i++) {
+                p[i] = (pLNode)g->AddNode();
+        }
+
+        // Performing some transformations
+        g->AddEdge(p[0],p[1]);
+        g->AddEdge(p[1],p[2]);
+        g->AddEdge(p[2],p[3]);
+        g->AddEdge(p[3],p[4]);
+        g->AddEdge(p[4],p[1]);
+        return g;
+}
+
 pLGraph VisTest()
 {
         printf("\nLayout test started..\n");
@@ -224,7 +245,8 @@ bool MainScene::Draw() {
         ui->statusbar->showMessage("Cannot display the dump");
         return false;
     }
-
+    
+    m_graph = VisTest2();
     m_graph->Layout();
 
     if (SetGraph(m_graph)) {
