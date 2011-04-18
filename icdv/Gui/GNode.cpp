@@ -86,7 +86,7 @@ void GNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
     }
     painter->setBrush(gradient);
     painter->setPen(QPen(Qt::black, 0));
-    painter->drawEllipse(-10, -10, 25, 25);
+    painter->drawEllipse(-10, -10, 20, 20);
     painter->setPen(QPen(Qt::black, 2));
     painter->setBrush(Qt::black);
     painter->drawText(QRectF(-7, -7, 20, 20), Qt::AlignCenter, QString::number(id));

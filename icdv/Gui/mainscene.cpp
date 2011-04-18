@@ -16,8 +16,11 @@
 #include "ui_mainscene.h"
 #include "../DumpParser.h"
 #include <stdio.h>
+
 #define node_heigh 10
 #define node_width 10
+
+#define default_frame_width 20
 
 #define default_view_height 600
 #define default_view_width 460
@@ -158,10 +161,10 @@ bool MainScene::Resize(const QSize &iconSize) {
 // TODO(Lega): it needs to be tested on real dump.
 // TODO(Lega): add nodes information displaying.
 void MainScene::resizeEvent(QResizeEvent * resize) {
-    ui->CFGView->setGeometry(QRect(default_view_x,
-                                   default_view_y,
-                                   resize->size().width(),
-                                   resize->size().height()));
+    ui->CFGView->setGeometry(QRect(0,
+                                   0,
+                                   resize->size().width() - default_frame_width,
+                                   resize->size().height() - default_frame_width));
 }
 
 bool MainScene::SetGraph(LGraph * graph_to_set) {
