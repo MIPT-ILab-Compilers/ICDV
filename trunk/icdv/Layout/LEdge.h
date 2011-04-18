@@ -25,17 +25,7 @@ class LEdge: public Edge {
                 m_composite_edges = NULL;
 	}
 
-        ~LEdge(){
-            if (m_composite_edges != NULL){
-                list<pLEdge> *temp_list =m_composite_edges;
-                delete m_composite_edges;
-                for(list<pLEdge>::iterator edge_iter = temp_list->begin();
-                    edge_iter != temp_list->end();
-                    edge_iter++){
-                            ((pLEdge) *edge_iter)->m_composite_edges = NULL;
-                    }
-            }
-        }
+        ~LEdge();
 
         friend class LGraph;
         friend class LNode;

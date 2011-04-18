@@ -21,7 +21,7 @@ void LGraph::Layout(){
 
         int crossings =0;
         // Number of iterations.
-        for (int i = 0; i <= 1; i++) {
+        for (int i = 0; i <= 3; i++) {
 
           QTime t;
 
@@ -32,7 +32,7 @@ void LGraph::Layout(){
 
             t.restart();
             // TODO(Kuzmich(svatoslav1)): make transpose faster. It is too slow for now
-            Transpose(&order, i+1);
+            Transpose(&order, i-1);
             crossings = countCrossing(order);
             printf(" Transpose:%5d ms crossing = %d\n", t.elapsed(),crossings);
         }
