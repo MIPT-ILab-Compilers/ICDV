@@ -30,7 +30,6 @@ void LEdge::BreakLongEdge(){
         new_edge->SetReverse(is_reverse);
         edges_list->push_back((pLEdge) new_edge);
         graph()->DeleteEdge(from(), to());
-        ((pLGraph) graph())->long_edges_list()->push_back(edges_list);
 
         for(list<pLEdge>::iterator edge_iter = edges_list->begin();
             edge_iter != edges_list->end();
@@ -51,3 +50,15 @@ void LEdge::CompositeEdgesDump(){
     printf("\n");
 }
 
+
+LEdge::~LEdge(){
+    if (m_composite_edges != NULL){
+        list<pLEdge> *temp_list =m_composite_edges;
+        delete m_composite_edges;
+        for(list<pLEdge>::iterator edge_iter = temp_list->begin();
+            edge_iter != temp_list->end();
+            edge_iter++){
+                    ((pLEdge) *edge_iter)->m_composite_edges = NULL;
+            }
+        }
+}
