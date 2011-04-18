@@ -11,10 +11,31 @@
  * And method BreakLongEdge() for better drawing long edges
  */
 class LEdge: public Edge {
-public:
+  private:
+    list<pLEdge> *m_composite_edges;
+
+  public:
+
+        list<pLEdge> *composite_edges() {
+            return m_composite_edges;
+        }
+
         LEdge(pLNode from, pLNode to): Edge((pNode)from, (pNode)to) {
 		reverse = false;
+                m_composite_edges = NULL;
 	}
+
+        ~LEdge(){
+            if (m_composite_edges != NULL){
+                list<pLEdge> *temp_list =m_composite_edges;
+                delete m_composite_edges;
+                for(list<pLEdge>::iterator edge_iter = temp_list->begin();
+                    edge_iter != temp_list->end();
+                    edge_iter++){
+                            ((pLEdge) *edge_iter)->m_composite_edges = NULL;
+                    }
+            }
+        }
 
         friend class LGraph;
         friend class LNode;
@@ -25,6 +46,7 @@ public:
 	 *  to do this edge shorter
 	 */
 	void BreakLongEdge();
+        void CompositeEdgesDump();
 };
 
 #endif

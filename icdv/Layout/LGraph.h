@@ -14,7 +14,14 @@ class LGraph: public Graph {
 private:
 	unsigned int maxrank;
 
+        list< list<pLEdge> * > m_long_edges_list;
+
 public:
+
+        list< list<pLEdge> * > *long_edges_list(){
+            return &m_long_edges_list;
+        }
+
 	LGraph(){
 		maxrank = 0;
 	}
