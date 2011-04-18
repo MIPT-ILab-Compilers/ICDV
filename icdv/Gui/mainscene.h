@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QSize>
+#include <QString>
 #include <QResizeEvent>
 
 #include "../Layout/Layout.h"
@@ -28,41 +29,42 @@ class MainScene : public QMainWindow
 {
     Q_OBJECT
 
-friend class GraphWidget;
 public:
-    explicit MainScene(QWidget *parent = 0);
+    explicit MainScene(QWidget *parent = 0, const QString * filename = 0);
     ~MainScene();
 
 public slots:
     bool LoadDump();
-    bool Exit();
     bool Save();
     bool Authors();
     bool Version();
     bool ZoomIn();
     bool ZoomOut();
+    bool SetLayoutIteratrions();
     bool Resize(const QSize &iconSize);
 
 
 protected:
+    // Sets graph_to_set to m_graph if it's valid.
     bool SetGraph(LGraph * graph_to_set);
 
     // Representation of call graph.
     LGraph * m_graph;
 
+    // This is image that will display in
+    // CFGView (look at mainscene.ui).
     QGraphicsScene * m_scene;
+
 protected slots:
+    // This function provides resize of main window
+    // and CFGView (look at mainscene.ui).
     void resizeEvent(QResizeEvent * resize);
-    // void DrawToScene(LGraph * graph);
 
 private:
     // This function draws m_graph into
-    // view (see below) and puts it into
-    // CFGView (look into mainscene.ui).
+    // m_scene (see below) and puts it into
+    // CFGView (look at mainscene.ui).
     bool Draw();
-
-    // GraphWidget. It provides graph view.
-    //GraphWidget * g_widget;
 
     // ui is a main window gui.
     Ui::MainScene *ui;

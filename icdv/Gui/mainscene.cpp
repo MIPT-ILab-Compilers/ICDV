@@ -51,7 +51,7 @@ pLGraph VisTest2()
 
 pLGraph VisTest()
 {
-        printf("\nLayout test started..\n");
+        printf("\nVis test started..\n");
 
         pLGraph g = new LGraph();
 
@@ -81,21 +81,11 @@ pLGraph VisTest()
         g->AddEdge(p[1],p[5]);
         g->AddEdge(p[1],p[9]);
 
-        //g->Layout();
-        //g.Dump();
-
-        //printf("maxrank = %i\n",g.getMaxrank());
-
-        // Clean up
-        //g.Destroy();
-        //delete []p;
-
-        //printf("Layout test passed!\n");
         return g;
 }
 
 
-MainScene::MainScene(QWidget *parent) :
+MainScene::MainScene(QWidget *parent, const QString * filename) :
     QMainWindow(parent),
     ui(new Ui::MainScene) {
     ui->setupUi(this);
@@ -169,21 +159,19 @@ bool MainScene::Version() {
     return true;
 }
 
-bool MainScene::Exit() {
-    delete this;
+bool MainScene::Resize(const QSize &iconSize) {
+    ui->CFGView->resize(iconSize);
     return true;
 }
 
-bool MainScene::Resize(const QSize &iconSize) {
-    ui->CFGView->resize(iconSize);
+bool MainScene::SetLayoutIteratrions() {
     return true;
 }
 
 // TODO(Lega): it needs to be tested on real dump.
 // TODO(Lega): add nodes information displaying.
 void MainScene::resizeEvent(QResizeEvent * resize) {
-    ui->CFGView->setGeometry(QRect(0,
-                                   0,
+    ui->CFGView->setGeometry(QRect(0, 0,
                                    resize->size().width() - default_frame_width,
                                    resize->size().height() - default_frame_width));
 }
@@ -246,7 +234,6 @@ bool MainScene::Draw() {
         return false;
     }
     
-    m_graph = VisTest2();
     m_graph->Layout();
 
     if (SetGraph(m_graph)) {

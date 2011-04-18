@@ -40,7 +40,6 @@
     </property>
     <addaction name="actionOpen"/>
     <addaction name="actionSave"/>
-    <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuAbout">
     <property name="title">
@@ -55,10 +54,11 @@
     </property>
     <addaction name="actionZoom_In"/>
     <addaction name="actionZoom_Out"/>
+    <addaction name="actionSet_Layout_iterations"/>
    </widget>
    <addaction name="menuFile"/>
-   <addaction name="menuAbout"/>
    <addaction name="menuScene"/>
+   <addaction name="menuAbout"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionOpen">
@@ -97,12 +97,22 @@
   </action>
   <action name="actionZoom_In">
    <property name="text">
-    <string>Zoom In</string>
+    <string>Zoom in</string>
    </property>
   </action>
   <action name="actionZoom_Out">
    <property name="text">
-    <string>Zoom Out</string>
+    <string>Zoom out</string>
+   </property>
+  </action>
+  <action name="actionSet_Layout_iterations">
+   <property name="text">
+    <string>Set layout terations</string>
+   </property>
+  </action>
+  <action name="actionRedraw_graph">
+   <property name="text">
+    <string>Redraw graph</string>
    </property>
   </action>
  </widget>
@@ -113,22 +123,6 @@
    <signal>triggered()</signal>
    <receiver>MainScene</receiver>
    <slot>Author()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>239</x>
-     <y>319</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionExit</sender>
-   <signal>triggered()</signal>
-   <receiver>MainScene</receiver>
-   <slot>Exit()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -211,8 +205,8 @@
    <slot>ZoomIn()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>239</x>
-     <y>319</y>
+     <x>-1</x>
+     <y>-1</y>
     </hint>
     <hint type="destinationlabel">
      <x>239</x>
