@@ -157,14 +157,13 @@ bool MainScene::Resize(const QSize &iconSize) {
 
 // TODO(Lega): it needs to be tested on real dump.
 // TODO(Lega): add nodes information displaying.
-/*
 void MainScene::resizeEvent(QResizeEvent * resize) {
     ui->CFGView->setGeometry(QRect(default_view_x,
                                    default_view_y,
-                                   resize->width(),
-                                   resize->height()));
+                                   resize->size().width(),
+                                   resize->size().height()));
 }
-*/
+
 bool MainScene::SetGraph(LGraph * graph_to_set) {
     if (m_scene == NULL)
         return false;
