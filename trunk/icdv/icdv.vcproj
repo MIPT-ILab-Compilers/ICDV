@@ -23,7 +23,6 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description=""
 				CommandLine=""
 			/>
 			<Tool
@@ -300,6 +299,16 @@
 						<Tool
 							Name="VCCustomBuildTool"
 							Description="Running MOC for mainscene"
+							CommandLine="moc GUI/mainscene.h -o GUI/moc_mainscene.cpp&#x0D;&#x0A;"
+							Outputs="GUI/moc_mainscene.cpp"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Running MOC for mainscene"
 							CommandLine="moc GUI/mainscene.h -o GUI/moc_mainscene.cpp"
 							Outputs="GUI/moc_mainscene.cpp"
 						/>
@@ -310,6 +319,16 @@
 					>
 					<FileConfiguration
 						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Compiling UI Forms: mainscene.ui"
+							CommandLine="uic Gui/mainscene.ui -o Gui/ui_mainscene.h"
+							Outputs="Gui/ui_mainscene.h"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
 						>
 						<Tool
 							Name="VCCustomBuildTool"
@@ -329,6 +348,14 @@
 					<File
 						RelativePath=".\Gui\ui_mainscene.h"
 						>
+						<FileConfiguration
+							Name="Debug|Win32"
+							>
+							<Tool
+								Name="VCCustomBuildTool"
+								AdditionalDependencies=""
+							/>
+						</FileConfiguration>
 					</File>
 				</Filter>
 			</Filter>
