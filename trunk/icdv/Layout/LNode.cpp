@@ -32,25 +32,29 @@ int  LNode::Rank(){
 }
 
 
-int LNode::Median(Ordering order,bool direction){
+double LNode::Median(Ordering order,bool direction){
         vector<int> list;
 	if (direction == MEDIAN_IN )
 		list = order.AdjInPositions(this);
 	else
 		list = order.AdjOutPositions(this);
 
-	int size = list.size();
-	int m = size / 2;
-	
-	if (size     == 0) {return -1; }
-	if (size % 2 == 1) {return (list[m]); }
-	if (size == 2) {return (list[0] + list[1]) / 2; }
+        int size = list.size();
+        int m = size / 2;
 
-	int left = list[m - 1] - list[0];
-	int right = list[size - 1] - list[m];
- 
-	return (list[m-1] * right + list[m] * left) / (left + right);
-	
+	if (size     == 0) {return -1; }
+        if (size % 2 == 1) {
+            median = (double)list[m];
+            return median; }
+        if (size == 2) {
+             median = ( (double) list[0] + (double) list[1]) / 2.;
+            return median; }
+
+        double left = (double) list[m - 1] - (double) list[0];
+        double right = (double) list[size - 1] - (double) list[m];
+
+        median = (double) ((double)list[m-1] * right + (double)list[m] * left) / (left + right);
+        return 0.0;
 }
 
 

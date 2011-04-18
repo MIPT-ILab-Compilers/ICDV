@@ -23,7 +23,7 @@ class LNode: public Node {
 private:
 	int rank;
 	int pos;
-	int median;
+        double median;
 
 	///Flag for the LNode::Rank()
 	bool we_were_here;
@@ -65,7 +65,7 @@ public:
 	/// Calculate node rank
 	int Rank();
 	
-	int getMedian() {return median;}
+        double getMedian() {return median;}
 	int getPos()    {return pos;}
 
 	/** Calculate weighed median for the node.
@@ -77,7 +77,7 @@ public:
 	  * If direction == true then funcrion calculate IN MEDIAN
 	  *	if false then OUT MEDIAN
 	  */
-	int Median(Ordering order,bool direction); 
+        double Median(Ordering order,bool direction);
 
 	/// Return true if node is adjacent to this node
 	bool IsAdjacentToNode(pLNode node);
