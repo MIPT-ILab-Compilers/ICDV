@@ -17,7 +17,7 @@ class QGraphicsSceneMouseEvent;
 class GNode : public QGraphicsItem
 {
 public:
-    GNode(QGraphicsView *graphWidget, bool dummy);
+    GNode(QGraphicsView *graphWidget, bool dummy, int id);
 
     void addEdge(GEdge *edge);
     QList<GEdge *> edges() const;
@@ -34,10 +34,6 @@ public:
 
     bool IsDummy () {
         return is_dummy;
-    };
-
-    int ID() {
-        return id;
     };
 
 protected:

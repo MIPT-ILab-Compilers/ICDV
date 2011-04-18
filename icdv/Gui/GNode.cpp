@@ -8,10 +8,12 @@
 #include <QStyleOption>
 #include <QStaticText>
 
+#include <stdlib.h>
+
 #include "../Gui/GEdge.h"
 #include "../Gui/GNode.h"
 
-GNode::GNode(QGraphicsView *graphWidget, bool dummy)
+GNode::GNode(QGraphicsView *graphWidget, bool dummy, int m_id)
     //: graph(graphWidget)
 {
     is_dummy = dummy;
@@ -19,6 +21,7 @@ GNode::GNode(QGraphicsView *graphWidget, bool dummy)
     setFlag(ItemSendsGeometryChanges);
     setCacheMode(DeviceCoordinateCache);
     setZValue(-1);
+    id = m_id;
 }
 
 void GNode::addEdge(GEdge *edge)
@@ -45,7 +48,7 @@ QRectF GNode::boundingRect() const
 {
     qreal adjust = 2;
     return QRectF(-10 - adjust, -10 - adjust,
-                  23 + adjust, 23 + adjust);
+                  30 + adjust, 30 + adjust);
 }
 
 QPainterPath GNode::shape() const
@@ -60,7 +63,6 @@ void GNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
     painter->setPen(Qt::NoPen);
     painter->setBrush(Qt::darkGray);
     painter->drawEllipse(-7, -7, 20, 20);
-    painter->drawStaticText(y() - 10, x() - 10, QStaticText("Node") );
 
     QRadialGradient gradient(-3, -3, 10);
     if (option->state & QStyle::State_Sunken) {
@@ -84,7 +86,10 @@ void GNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
     }
     painter->setBrush(gradient);
     painter->setPen(QPen(Qt::black, 0));
-    painter->drawEllipse(-10, -10, 20, 20);
+    painter->drawEllipse(-10, -10, 25, 25);
+    painter->setPen(QPen(Qt::black, 2));
+    painter->setBrush(Qt::black);
+    painter->drawText(QRectF(-7, -7, 20, 20), Qt::AlignCenter, QString::number(id));
 }
 
 void GNode::calculateForces()
