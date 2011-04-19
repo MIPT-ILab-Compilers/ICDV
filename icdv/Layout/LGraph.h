@@ -14,16 +14,13 @@ class LGraph: public Graph {
 private:
 	unsigned int maxrank;
 
-        list< list<pLEdge> * > m_long_edges_list;
+        bool layouted; // Are the graph already layouted.
+        Ordering *order;
 
 public:
-
-        list< list<pLEdge> * > *long_edges_list(){
-            return &m_long_edges_list;
-        }
-
 	LGraph(){
 		maxrank = 0;
+                order = NULL;
 	}
 	/// Replacing revert eages from the ReverceEdges list.
 	void ReverseReverseEdges(list<pEdge> &ReverseEdges);
@@ -38,7 +35,9 @@ public:
 	 * 4. Makes ordering (horisontal placement)
 	 * 5. ...
 	 */
-	void Layout();
+        void Layout(unsigned int number_of_iterations = 3,
+                    bool do_transpose = true,
+                    int transpose_range = -1);
 
 	/**
 	 * Init Rank value for each node.
@@ -55,10 +54,10 @@ public:
 	void FindLongEdges(list<pEdge> &LongEdges);
 	
         /// Init pos value for each node using order.
-	void InitPos(Ordering order);
+        void InitPos(Ordering *order);
 
         /// Init coordiates for each node.
-        void InitCoordinates(Ordering order,
+        void InitCoordinates(Ordering *order,
                              int normalwide = 50,
                              int dummywide = 25,
                              int vertical_size = 80);
@@ -69,17 +68,17 @@ public:
 	 * vertices on the previous rank. Then, the vertices in the rank are 
 	 * sorted by their medians.
 	 */
-        void WeightedMedianHeuristic(Ordering *order, int iter);
+        void WeightedMedianHeuristic(int iter);
 
 	/**
 	 * The transposition heuristic for reducing edge crossings.
 	 * Transpose repeatedly exchanges adjacent vertices on the 
 	 * same rank if this decreases the number of crossings.
 	 */
-        void Transpose(Ordering *order, int max);
+        void Transpose(int max);
 	
 	/// Calculate all edges crossings in the whole graph.
-	int countCrossing(Ordering order);
+        int countCrossing(Ordering *order);
 
 	
 	/// Calculate all crossings between rank an rank+1.
