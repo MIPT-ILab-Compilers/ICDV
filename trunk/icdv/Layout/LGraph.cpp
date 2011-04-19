@@ -6,7 +6,9 @@
 #include <QTime>
 
 
-void LGraph::Layout(){
+void LGraph::Layout(unsigned int number_of_iterations,
+                    bool do_transpose,
+                    int transpose_range){
 
         list<pEdge> ReverseEdges;
         FindReverseEdges(ReverseEdges);
@@ -16,33 +18,24 @@ void LGraph::Layout(){
         FindLongEdges(LongEdges);
         AddDummyNodes(LongEdges);
         ReverseEdges.clear();
-	Ordering order;
-        order.order_vector = InitOrder();
+        order = new Ordering();
+        order->order_vector = InitOrder();
 
-        int crossings =0;
         // Number of iterations.
-        for (int i = 0; i <= 3; i++) {
+        layouted = true;
+        for (unsigned int i = 0; i < number_of_iterations; i++) {
 
-          QTime t;
-
-            t.start();
-            WeightedMedianHeuristic(&order,i);
-            crossings = countCrossing(order);
-            printf("Median:%5d ms crossing = %6d ", t.elapsed(), crossings);
-
-            t.restart();
+            WeightedMedianHeuristic(i);
             // TODO(Kuzmich(svatoslav1)): make transpose faster. It is too slow for now
-            Transpose(&order, i-1);
-            crossings = countCrossing(order);
-            printf(" Transpose:%5d ms crossing = %d\n", t.elapsed(),crossings);
+            if (do_transpose)
+                Transpose(i + transpose_range);
         }
 
         InitPos(order);
         InitCoordinates(order);
 #ifdef DEBUG
-	printf("Crossings:%d\n",countCrossing(order));
+        printf("Crossings:%d\n",countCrossing(order));
 #endif
-      //  order.Dump();
 }
 
 
@@ -99,7 +92,10 @@ bool ComparePointer(pLNode node1, pLNode node2)
         return node1->getMedian() < node2->getMedian();
 }
 
-void LGraph::WeightedMedianHeuristic(Ordering* order,int iter){
+void LGraph::WeightedMedianHeuristic(int iter){
+
+    if(!layouted)
+        Layout(0,0,0);
 
         Ordering temp_order;
         temp_order.order_vector = order->order_vector;
@@ -125,21 +121,21 @@ void LGraph::WeightedMedianHeuristic(Ordering* order,int iter){
 				ComparePointer);
 		}
         }
-        InitPos(temp_order);
-        int cross_temp_order = countCrossing(temp_order);
+        InitPos(&temp_order);
+        int cross_temp_order = countCrossing(&temp_order);
 
-        InitPos(*order);
-        int cross_order = countCrossing(*order);
+        InitPos(order);
+        int cross_order = countCrossing(order);
 
         if (cross_temp_order <= cross_order){
                 order->order_vector = temp_order.order_vector;
         }
 }
 
-int LGraph::countCrossing(Ordering order){
+int LGraph::countCrossing(Ordering *order){
 	int crossing = 0;
         for (unsigned int rank = 0; rank < maxrank - 1; rank++)
-                crossing += countCrossingOnRank(&order,rank);
+                crossing += countCrossingOnRank(order,rank);
 	return crossing;
 }
 
@@ -173,13 +169,13 @@ int LGraph::countCrossingOnRank(Ordering *order,int rank){
 	return crossing;
 }	
 
-void LGraph::InitPos(Ordering order){
+void LGraph::InitPos(Ordering *order){
         for(unsigned int rank = 0; rank <= maxrank; rank++)
-                for(unsigned int i = 0; i < order.order_vector[rank].size(); i++)
-			order.order_vector[rank][i]->pos = i;
+                for(unsigned int i = 0; i < order->order_vector[rank].size(); i++)
+                        order->order_vector[rank][i]->pos = i;
 }
 
-void LGraph::InitCoordinates(Ordering order,
+void LGraph::InitCoordinates(Ordering *order,
                              int normalwide,
                              int dummywide,
                              int vertical_size){
@@ -187,12 +183,12 @@ void LGraph::InitCoordinates(Ordering order,
     vector<unsigned int> wides(maxrank+1);
 
     // Getting Max Size;
-    int maxwide = 0;
+    unsigned int maxwide = 0;
 
     // Calculating wide of each rank.
     for(unsigned int rank = 0; rank <= maxrank; rank++){
-        for(unsigned int i = 0; i < order.order_vector[rank].size(); i++){
-          if (!order.order_vector[rank][i]->dummy)
+        for(unsigned int i = 0; i < order->order_vector[rank].size(); i++){
+          if (!order->order_vector[rank][i]->dummy)
             wides[rank]+=normalwide;
           else
             wides[rank]+=dummywide;
@@ -203,22 +199,26 @@ void LGraph::InitCoordinates(Ordering order,
 
     // Centering graph
     for(unsigned int rank = 0; rank <= maxrank; rank++){
-        for(unsigned int i = 0; i < order.order_vector[rank].size(); i++){
+        for(unsigned int i = 0; i < order->order_vector[rank].size(); i++){
 
             if (i == 0)
-              order.order_vector[rank][i]->x = (maxwide / 2)-(wides[rank]/2)+20;
-            else if (!order.order_vector[rank][i]->dummy)
-              order.order_vector[rank][i]->x = order.order_vector[rank][i-1]->x+normalwide;
+              order->order_vector[rank][i]->x = (maxwide / 2)-(wides[rank]/2)+20;
+            else if (!order->order_vector[rank][i]->dummy)
+              order->order_vector[rank][i]->x = order->order_vector[rank][i-1]->x+normalwide;
             else
-              order.order_vector[rank][i]->x = order.order_vector[rank][i-1]->x+dummywide;
+              order->order_vector[rank][i]->x = order->order_vector[rank][i-1]->x+dummywide;
 
-            order.order_vector[rank][i]->y = rank *vertical_size;
+            order->order_vector[rank][i]->y = rank *vertical_size;
         }
     }
 }
 
 
-void LGraph::Transpose(Ordering *order, int max){
+void LGraph::Transpose(int max){
+
+        if(!layouted)
+            Layout(0,0,0);
+
         bool improved = true;
 
         for (int j = 1; j < max; j++){
@@ -229,7 +229,7 @@ void LGraph::Transpose(Ordering *order, int max){
                         for (unsigned int i = 0; order->order_vector[r].size()>j && i < order->order_vector[r].size() - (j+1); i++){
                                 pLNode v = order->order_vector[r][i];
                                 pLNode w = order->order_vector[r][i+j];
-                                InitPos(*order);
+                                InitPos(order);
                                 int cross0 = countCrossingOnRank(order, r) +
                                              countCrossingOnRank(order, r-1);
                                 v->pos+=j;
