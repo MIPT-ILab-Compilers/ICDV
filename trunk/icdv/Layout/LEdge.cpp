@@ -50,7 +50,7 @@ void LEdge::CompositeEdgesDump(){
     printf("\n");
 }
 
-
+/*
 LEdge::~LEdge(){
     if (m_composite_edges != NULL){
         list<pLEdge> *temp_list = m_composite_edges;
@@ -61,4 +61,4 @@ LEdge::~LEdge(){
             }
    delete temp_list;
    }
-}
+}*/

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>480</width>
+    <width>631</width>
     <height>640</height>
    </rect>
   </property>
@@ -19,8 +19,8 @@
      <rect>
       <x>11</x>
       <y>11</y>
-      <width>461</width>
-      <height>591</height>
+      <width>611</width>
+      <height>611</height>
      </rect>
     </property>
    </widget>
@@ -30,7 +30,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>480</width>
+     <width>631</width>
      <height>22</height>
     </rect>
    </property>
@@ -107,7 +107,7 @@
   </action>
   <action name="actionSet_Layout_iterations">
    <property name="text">
-    <string>Set layout terations</string>
+    <string>Set layout iterations</string>
    </property>
   </action>
   <action name="actionRedraw_graph">
