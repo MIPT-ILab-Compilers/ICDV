@@ -18,13 +18,12 @@
 GNode::GNode(QMainWindow * graphWidget, bool dummy,
              int m_id,
              const QString * source)
-    //: graph(graphWidget)
 {
     m_graphWidget = graphWidget;
     is_dummy = dummy;
-    setFlag(ItemIsMovable);
-    setFlag(ItemSendsGeometryChanges);
-    setCacheMode(DeviceCoordinateCache);
+    // setFlag(ItemIsMovable);
+    // setFlag(ItemSendsGeometryChanges);
+    // setCacheMode(DeviceCoordinateCache);
     setZValue(-1);
     id = m_id;
     m_source.clear();
@@ -101,7 +100,7 @@ void GNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
 }
 
 void GNode::mousePressEvent(QGraphicsSceneMouseEvent *event) {
-    DumpView * nodeWindow = new DumpView((QWidget *)(this->parentWidget()));
+    DumpView * nodeWindow = new DumpView(id ,m_source, (QWidget *)(m_graphWidget));
     nodeWindow->SetText(m_source);
     nodeWindow->show();
 }
