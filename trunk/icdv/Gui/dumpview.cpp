@@ -11,6 +11,7 @@ DumpView::DumpView(int id, const QString &source, QWidget *parent) :
     scene->addSimpleText(source);
     ui->DumpLabel->setScene(scene);
     ui->DumpLabel->show();
+    grabMouse();
     setWindowTitle("Node " + QString::number(id) +" content");
 }
 
