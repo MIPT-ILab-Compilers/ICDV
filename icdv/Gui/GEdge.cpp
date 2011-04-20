@@ -135,7 +135,6 @@ void GEdge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *
 }
 void GEdge::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     pressed = !pressed;
-    printf("GEdge.cpp 133\n");
     update();
     QGraphicsItem::mousePressEvent(event);
     // m_widget->Redraw();

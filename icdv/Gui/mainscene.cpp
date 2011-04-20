@@ -192,7 +192,7 @@ bool MainScene::SetGraph(LGraph * graph_to_set) {
          node_iter != graph_to_set->nodes_list()->end();
          node_iter++)
     {
-        buf_node = new GNode(ui->CFGView, ((pLNode)(*node_iter))->IsDummy(), (*node_iter)->id());
+        buf_node = new GNode(this, ((pLNode)(*node_iter))->IsDummy(), (*node_iter)->id());
         nodes_map[*node_iter] = buf_node;
         buf_node->setPos(((pLNode)(*node_iter))->getX(), ((pLNode)(*node_iter))->getY());
         if (((pLNode)(*node_iter))->IsDummy())
@@ -220,6 +220,9 @@ bool MainScene::SetGraph(LGraph * graph_to_set) {
                     buf_edge = new GEdge(nodes_map[(*edge_iter)->from()],
                                              nodes_map[(*edge_iter)->to()]);
 
+                //if ((*edge_iter)->composite_edges()) {
+                    // создать и пометить как композитные все ребра из composite_edges
+                //}
                 m_scene->addItem(buf_edge);
             }
         }

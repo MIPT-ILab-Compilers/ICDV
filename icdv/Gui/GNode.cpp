@@ -7,21 +7,29 @@
 #include <QPainter>
 #include <QStyleOption>
 #include <QStaticText>
+#include <QWidget>
 
 #include <stdlib.h>
 
+#include "../Gui/dumpview.h"
 #include "../Gui/GEdge.h"
 #include "../Gui/GNode.h"
 
-GNode::GNode(QGraphicsView *graphWidget, bool dummy, int m_id)
+GNode::GNode(QMainWindow * graphWidget, bool dummy,
+             int m_id,
+             const QString * source)
     //: graph(graphWidget)
 {
+    m_graphWidget = graphWidget;
     is_dummy = dummy;
     setFlag(ItemIsMovable);
     setFlag(ItemSendsGeometryChanges);
     setCacheMode(DeviceCoordinateCache);
     setZValue(-1);
     id = m_id;
+    m_source.clear();
+    if (source)
+        m_source += (*source);
 }
 
 void GNode::addEdge(GEdge *edge)
@@ -91,6 +99,13 @@ void GNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
     painter->setBrush(Qt::black);
     painter->drawText(QRectF(-7, -7, 20, 20), Qt::AlignCenter, QString::number(id));
 }
+
+void GNode::mousePressEvent(QGraphicsSceneMouseEvent *event) {
+    DumpView * nodeWindow = new DumpView((QWidget *)(this->parentWidget()));
+    nodeWindow->SetText(m_source);
+    nodeWindow->show();
+}
+
 
 void GNode::calculateForces()
  {

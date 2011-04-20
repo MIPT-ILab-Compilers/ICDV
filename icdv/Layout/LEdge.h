@@ -6,7 +6,8 @@
 #define LAYOUT_EDGE_H
 
 /// Edge with Layout methods
-/**
+/** TODO(Lega) : improve docs.
+ *
  * This class contains one new variable: reverse
  * And method BreakLongEdge() for better drawing long edges
  */
@@ -16,7 +17,7 @@ class LEdge: public Edge {
 
   public:
 
-        list<pLEdge> *composite_edges() {
+        const list<pLEdge> *composite_edges() {
             return m_composite_edges;
         }
 
@@ -25,7 +26,19 @@ class LEdge: public Edge {
                 m_composite_edges = NULL;
 	}
 
-        ~LEdge();
+        // TODO(Lega): this function produces a lot of memory leaks
+        // and segfault at the end of execution. Try to fix it.
+        ~LEdge(){
+            if (m_composite_edges != NULL) {
+                list<pLEdge> *temp_list =m_composite_edges;
+                delete m_composite_edges;
+                for(list<pLEdge>::iterator edge_iter = temp_list->begin();
+                    edge_iter != temp_list->end();
+                    edge_iter++){
+                            ((pLEdge) *edge_iter)->m_composite_edges = NULL;
+                    }
+            }
+        }
 
         friend class LGraph;
         friend class LNode;
