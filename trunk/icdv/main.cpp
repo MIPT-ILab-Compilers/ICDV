@@ -44,6 +44,7 @@ void Test_QT(int argc, char** argv)
 {
 	printf("\nQT test started..\n");
         QApplication app( argc, argv);
+        app.setQuitOnLastWindowClosed(true);
         MainScene mw;
 	mw.show();
 	app.exec();
