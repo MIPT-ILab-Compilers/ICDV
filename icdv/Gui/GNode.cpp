@@ -21,6 +21,7 @@ GNode::GNode(QMainWindow * graphWidget, bool dummy,
 {
     m_graphWidget = graphWidget;
     is_dummy = dummy;
+    clicked = false;
     // setFlag(ItemIsMovable);
     // setFlag(ItemSendsGeometryChanges);
     // setCacheMode(DeviceCoordinateCache);

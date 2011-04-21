@@ -15,7 +15,6 @@
 #include "../Gui/GEdge.h"
 #include "ui_mainscene.h"
 #include "../DumpParser.h"
-#include <stdio.h>
 
 #define node_heigh 10
 #define node_width 10
@@ -51,8 +50,6 @@ pLGraph VisTest2()
 
 pLGraph VisTest()
 {
-        printf("\nVis test started..\n");
-
         pLGraph g = new LGraph();
 
         int len = 10;
@@ -107,11 +104,6 @@ bool MainScene::ZoomIn() {
 
 bool MainScene::ZoomOut() {
     return true;
-}
-
-void MainScene::Redraw() {
-    ui->CFGView->setScene(m_scene);
-    ui->CFGView->show();
 }
 
 bool MainScene::LoadDump() {
@@ -173,15 +165,14 @@ bool MainScene::SetLayoutIteratrions() {
     return true;
 }
 
-// TODO(Lega): it needs to be tested on real dump.
-// TODO(Lega): add nodes information displaying.
 void MainScene::resizeEvent(QResizeEvent * resize) {
     ui->CFGView->setGeometry(QRect(0, 0,
                                    resize->size().width() - default_frame_width,
                                    resize->size().height() - default_frame_width));
 }
 
-bool MainScene::SetGraph(LGraph * graph_to_set) {
+bool MainScene::SetGraph(LGraph * graph_to_set)
+{
     if (m_scene == NULL)
         return false;
 
@@ -213,19 +204,49 @@ bool MainScene::SetGraph(LGraph * graph_to_set) {
         {
             if (added_edges.find((*edge_iter)) == added_edges.end())
             {
-                added_edges[*edge_iter] = true;
+                if (((pLEdge)(*edge_iter))->Composite()) {
+                    if (((pLEdge)(*edge_iter))->composite_edges() == NULL)
+                        continue;
 
-                if (((pLEdge)(*edge_iter))->IsReverse() == false)
-                    buf_edge = new GEdge(nodes_map[(*edge_iter)->to()],
-                                         nodes_map[(*edge_iter)->from()]);
-                else
-                    buf_edge = new GEdge(nodes_map[(*edge_iter)->from()],
-                                             nodes_map[(*edge_iter)->to()]);
+                    list<pLEdge> * edge_list = const_cast<list<pLEdge> *>
+                            (((pLEdge)(*edge_iter))->composite_edges());
+                    list<GEdge *> * composite_edges = new list<GEdge *>;
 
-                //if ((*edge_iter)->composite_edges()) {
-                    // создать и пометить как композитные все ребра из composite_edges
-                //}
-                m_scene->addItem(buf_edge);
+                    GEdge * buf_comp_edge;
+                    for (list<pLEdge>::iterator comp_edge_iter = edge_list->begin();
+                         comp_edge_iter != edge_list->end();
+                         comp_edge_iter++) {
+                        if (((pLEdge)(*comp_edge_iter))->IsReverse() == false)
+
+                            buf_comp_edge = new GEdge(nodes_map[(*comp_edge_iter)->to()],
+                                                 nodes_map[(*comp_edge_iter)->from()]);
+                        else
+                            buf_comp_edge = new GEdge(nodes_map[(*comp_edge_iter)->from()],
+                                                     nodes_map[(*comp_edge_iter)->to()]);
+                        buf_comp_edge->SetComposite(true);
+                        added_edges[(*comp_edge_iter)] = true;
+                        (*comp_edge_iter)->SetComposite(false);
+                        composite_edges->push_back(buf_comp_edge);
+                    }
+
+                    for (list<GEdge *>::iterator comp_edge_iter = composite_edges->begin();
+                         comp_edge_iter != composite_edges->end();
+                         comp_edge_iter++) {
+                        (*comp_edge_iter)->SetCompositeEdges(new list<GEdge *>(*composite_edges));
+                        (*comp_edge_iter)->SetComposite(true);
+                        m_scene->addItem(*comp_edge_iter);
+                    }
+                } else {
+                    added_edges[*edge_iter] = true;
+
+                    if (((pLEdge)(*edge_iter))->IsReverse() == false)
+                        buf_edge = new GEdge(nodes_map[(*edge_iter)->to()],
+                                             nodes_map[(*edge_iter)->from()]);
+                    else
+                        buf_edge = new GEdge(nodes_map[(*edge_iter)->from()],
+                                                 nodes_map[(*edge_iter)->to()]);
+                    m_scene->addItem(buf_edge);
+                }
             }
         }
     }
@@ -243,7 +264,7 @@ bool MainScene::Draw() {
         ui->statusbar->showMessage("Cannot display the dump");
         return false;
     }
-    
+    m_graph = VisTest2();
     m_graph->Layout();
 
     if (SetGraph(m_graph)) {

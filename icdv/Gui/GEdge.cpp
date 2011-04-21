@@ -126,16 +126,29 @@ void GEdge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *
         painter->setBrush(Qt::red);
     else
         painter->setBrush(Qt::black);
-
     if (is_to_dummy_node == true && is_from_dummy_node == false)
         if (reverse == false)
            painter->drawPolygon(QPolygonF() << line.p1() << sourceArrowP1 << sourceArrowP2);
     if (is_to_dummy_node == false && is_from_dummy_node == false)
         painter->drawPolygon(QPolygonF() << line.p1() << sourceArrowP1 << sourceArrowP2);
 }
-void GEdge::mousePressEvent(QGraphicsSceneMouseEvent *event) {
+
+void GEdge::Update(QGraphicsSceneMouseEvent *event) {
     pressed = !pressed;
     update();
+    if (event)
+        QGraphicsItem::mousePressEvent(event);
+}
+
+void GEdge::mousePressEvent(QGraphicsSceneMouseEvent *event) {
+    if (m_composite_edges)
+        for (std::list<GEdge *>::iterator edge_iter = m_composite_edges->begin();
+             edge_iter != m_composite_edges->end();
+             edge_iter++)
+            (*edge_iter)->Update(event);
+    else {
+        pressed = !pressed;
+        update();
+    }
     QGraphicsItem::mousePressEvent(event);
-    // m_widget->Redraw();
 }

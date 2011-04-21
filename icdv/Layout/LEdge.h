@@ -13,32 +13,24 @@
  */
 class LEdge: public Edge {
   private:
-    list<pLEdge> *m_composite_edges;
+    list<pLEdge> * m_composite_edges;
+    bool composite;
 
   public:
 
-        const list<pLEdge> *composite_edges() {
+        const list<pLEdge> * composite_edges() {
             return m_composite_edges;
         }
 
         LEdge(pLNode from, pLNode to): Edge((pNode)from, (pNode)to) {
-		reverse = false;
-                m_composite_edges = NULL;
+            composite = false;
+            reverse = false;
+            m_composite_edges = NULL;
 	}
 
         // TODO(Lega): this function produces a lot of memory leaks
         // and segfault at the end of execution. Try to fix it.
-        ~LEdge(){
-            if (m_composite_edges != NULL) {
-                list<pLEdge> *temp_list =m_composite_edges;
-                delete m_composite_edges;
-                for(list<pLEdge>::iterator edge_iter = temp_list->begin();
-                    edge_iter != temp_list->end();
-                    edge_iter++){
-                            ((pLEdge) *edge_iter)->m_composite_edges = NULL;
-                    }
-            }
-        }
+        ~LEdge();
 
         friend class LGraph;
         friend class LNode;
@@ -50,6 +42,14 @@ class LEdge: public Edge {
 	 */
 	void BreakLongEdge();
         void CompositeEdgesDump();
+
+        bool Composite() {
+            return composite;
+        }
+
+        void SetComposite(bool is_composite) {
+            composite = is_composite;
+        }
 };
 
 #endif

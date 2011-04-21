@@ -46,6 +46,7 @@ protected:
     // void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
 private:
+    bool clicked;
     QString m_source;
     QList<GEdge *> edgeList;
     QPointF newPos;
