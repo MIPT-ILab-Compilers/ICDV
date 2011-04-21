@@ -2,16 +2,16 @@
 #include "ui_dumpview.h"
 
 DumpView::DumpView(int id, const QString &source, QWidget *parent) :
-    QWidget(parent),
+    QMainWindow(parent),
     ui(new Ui::DumpView)
 {
+    this->setAttribute(Qt::WA_AcceptDrops);
     ui->setupUi(this);
     SetText(source);
     QGraphicsScene * scene = new QGraphicsScene(ui->DumpLabel->sceneRect());
     scene->addSimpleText(source);
     ui->DumpLabel->setScene(scene);
     ui->DumpLabel->show();
-    grabMouse();
     setWindowTitle("Node " + QString::number(id) +" content");
 }
 

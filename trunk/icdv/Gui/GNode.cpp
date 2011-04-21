@@ -100,7 +100,7 @@ void GNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
 }
 
 void GNode::mousePressEvent(QGraphicsSceneMouseEvent *event) {
-    DumpView * nodeWindow = new DumpView(id ,m_source);//, (QWidget *)(m_graphWidget));
+    DumpView * nodeWindow = new DumpView(id ,m_source, (QWidget *)(m_graphWidget));
     nodeWindow->SetText(m_source);
     nodeWindow->show();
 }
