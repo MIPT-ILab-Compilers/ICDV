@@ -4,12 +4,13 @@
 #include <QWidget>
 #include <QString>
 #include <QResizeEvent>
+#include <QMainWindow>
 
 namespace Ui {
     class DumpView;
 }
 
-class DumpView : public QWidget
+class DumpView : public QMainWindow
 {
     Q_OBJECT
 
