@@ -5,6 +5,7 @@
 #define EDGE_H
 
 #include <QGraphicsItem>
+#include <QGraphicsSceneMouseEvent>
 #include <list>
 
 class GNode;
@@ -48,13 +49,23 @@ public:
     // Be careful with using of this function: it might produce a memory leak
     // when composite param is NULL and m_composite_edges isn't NULL;
     // TODO(Lega): add right memory free for situation above.
-    //void SetCompositeEdges (const std::list<GEdge *> composite) {
-    //    m_composite_edges = composite;
-    //}
+    void SetCompositeEdges (const std::list<GEdge *> * composite) {
+        m_composite_edges = const_cast<std::list<GEdge *> *>(composite);
+    }
 
-    //const std::list<GEdge *> CompositeEdges() {
-    //    return m_composite_edges;
-    //}
+    const std::list<GEdge *> * CompositeEdges() {
+        return m_composite_edges;
+    }
+
+    bool Composite() {
+        return composite;
+    }
+
+    void SetComposite(bool is_composite) {
+        composite = is_composite;
+    }
+
+    void Update(QGraphicsSceneMouseEvent *event);
 
 protected:
     QRectF boundingRect() const;
@@ -64,9 +75,9 @@ protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
 
 private:
-    MainScene * m_widget;
     bool pressed;
-    std::list<pGNode> * m_composite_edges;
+    bool composite;
+    std::list<GEdge *> * m_composite_edges;
     bool reverse;
     bool is_from_dummy_node;
     bool is_to_dummy_node;
