@@ -45,7 +45,6 @@
     <property name="title">
      <string>About</string>
     </property>
-    <addaction name="actionAuthors"/>
     <addaction name="actionVersion"/>
    </widget>
    <widget class="QMenu" name="menuScene">
@@ -246,6 +245,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionSet_Layout_iterations</sender>
+   <signal>triggered()</signal>
+   <receiver>MainScene</receiver>
+   <slot>SetLayoutIteratrions()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>315</x>
+     <y>319</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>LoadDump()</slot>
@@ -256,5 +271,6 @@
   <slot>ZoomIn()</slot>
   <slot>ZoomOut()</slot>
   <slot>Resize(QSize)</slot>
+  <slot>SetLayoutIteratrions()</slot>
  </slots>
 </ui>

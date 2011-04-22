@@ -13,6 +13,7 @@
 #include "../Gui/mainscene.h"
 #include "../Gui/GNode.h"
 #include "../Gui/GEdge.h"
+#include "../Gui/LayoutIterationDialog.h"
 #include "ui_mainscene.h"
 #include "../DumpParser.h"
 
@@ -24,6 +25,7 @@ MainScene::MainScene(QWidget *parent, const QString * filename) :
     ui->setupUi(this);
     m_graph = new LGraph();
     m_scene = new QGraphicsScene(ui->CFGView->sceneRect());
+    layout_iterations = 3;
 }
 
 MainScene::~MainScene() {
@@ -40,6 +42,12 @@ bool MainScene::ZoomIn() {
 
 bool MainScene::ZoomOut() {
     return true;
+}
+
+void MainScene::SetLayoutIteratrions() {
+   LayoutIterationDialog * dial = new LayoutIterationDialog();
+   dial->show();
+   layout_iterations = dial->GetLayoutIterations();
 }
 
 bool MainScene::LoadDump() {
@@ -94,10 +102,6 @@ bool MainScene::Version() {
 
 bool MainScene::Resize(const QSize &iconSize) {
     ui->CFGView->resize(iconSize);
-    return true;
-}
-
-bool MainScene::SetLayoutIteratrions() {
     return true;
 }
 
