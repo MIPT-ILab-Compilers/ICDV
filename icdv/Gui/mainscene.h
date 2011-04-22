@@ -65,6 +65,7 @@ private:
     // m_scene (see below) and puts it into
     // CFGView (look at mainscene.ui).
     bool Draw();
+    bool is_drawed;
 
     int layout_iterations;
     // ui is a main window gui.

@@ -1,5 +1,3 @@
-#include <QFileDialog>
-#include <QString>
 /**
  * @file: mainscene.cpp
  */
@@ -7,6 +5,8 @@
 #include <QResizeEvent>
 #include <QSize>
 #include <QImage>
+#include <QFileDialog>
+#include <QString>
 
 #include <map>
 
@@ -26,6 +26,7 @@ MainScene::MainScene(QWidget *parent, const QString * filename) :
     m_graph = new LGraph();
     m_scene = new QGraphicsScene(ui->CFGView->sceneRect());
     layout_iterations = 3;
+    is_drawed = false;
 }
 
 MainScene::~MainScene() {
@@ -61,6 +62,12 @@ bool MainScene::LoadDump() {
     if (filename.isNull()) {
         return false;
      }
+
+    if (is_drawed) {
+        m_graph->Destroy();
+        m_graph = new LGraph();
+    } else
+        is_drawed = true;
 
     // Initialization of DumpProp and CFGView.
     ParseDump(m_graph, filename);
@@ -205,6 +212,12 @@ bool MainScene::Draw() {
         return false;
     }
 
+    if (is_drawed)
+        if (m_scene)
+            m_scene->clear();
+        else
+            ui->statusbar->showMessage("Cannot init QGraphicsScene");
+
     m_graph->Layout();
 
     if (SetGraph(m_graph)) {
@@ -214,5 +227,6 @@ bool MainScene::Draw() {
         return false;
     }
 
+    ui->statusbar->showMessage("Draw finished");
     return true;
 }
