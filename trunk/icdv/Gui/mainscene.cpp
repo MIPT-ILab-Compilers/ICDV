@@ -59,14 +59,6 @@ MainScene::~MainScene() {
         delete m_scene;
 }
 
-bool MainScene::ZoomIn() {
-    return true;
-}
-
-bool MainScene::ZoomOut() {
-    return true;
-}
-
 void MainScene::SetLayoutIteratrions() {
    LayoutIterationDialog * dial = new LayoutIterationDialog(this);
    dial->show();
@@ -251,7 +243,7 @@ bool MainScene::Draw() {
     ui->statusbar->showMessage("Draw finished");
     return true;
 }
-
+/*
 void MainScene::keyPressEvent(QKeyEvent *event) {
     switch (event->key()) {
         case Qt::Key_Plus:
@@ -261,3 +253,4 @@ void MainScene::keyPressEvent(QKeyEvent *event) {
             ScaleView(1 / qreal(1.2));
     }
 }
+*/

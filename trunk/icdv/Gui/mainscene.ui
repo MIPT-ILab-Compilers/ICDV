@@ -98,10 +98,16 @@
    <property name="text">
     <string>Zoom in</string>
    </property>
+   <property name="shortcut">
+    <string>+</string>
+   </property>
   </action>
   <action name="actionZoom_Out">
    <property name="text">
     <string>Zoom out</string>
+   </property>
+   <property name="shortcut">
+    <string>_</string>
    </property>
   </action>
   <action name="actionSet_Layout_iterations">

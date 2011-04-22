@@ -38,8 +38,13 @@ public slots:
     bool Save();
     bool Authors();
     bool Version();
-    bool ZoomIn();
-    bool ZoomOut();
+    void ZoomIn() {
+        ScaleView(qreal(1.2));
+    }
+
+    void ZoomOut() {
+        ScaleView(qreal(1./1.2));
+    }
     void SetLayoutIteratrions();
     bool Resize(const QSize &iconSize);
 
@@ -56,7 +61,7 @@ protected:
     QGraphicsScene * m_scene;
 
     void wheelEvent(QWheelEvent *event);
-    void keyPressEvent(QKeyEvent *event);
+    //void keyPressEvent(QKeyEvent *event);
 
 protected slots:
     // This function provides resize of main window
