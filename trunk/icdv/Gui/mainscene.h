@@ -40,7 +40,7 @@ public slots:
     bool Version();
     bool ZoomIn();
     bool ZoomOut();
-    bool SetLayoutIteratrions();
+    void SetLayoutIteratrions();
     bool Resize(const QSize &iconSize);
 
 
@@ -66,6 +66,7 @@ private:
     // CFGView (look at mainscene.ui).
     bool Draw();
 
+    int layout_iterations;
     // ui is a main window gui.
     Ui::MainScene *ui;
 };

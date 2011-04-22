@@ -15,7 +15,8 @@ SOURCES += main.cpp \
     Gui/GNode.cpp \
     Gui/GEdge.cpp \
     testing/test.cpp \
-    Gui/dumpview.cpp
+    Gui/dumpview.cpp \
+    Gui/LayoutIterationDialog.cpp
 HEADERS += Deriv.h \
     Graph/Edge.h \
     Graph/Graph.h \
@@ -30,7 +31,8 @@ HEADERS += Deriv.h \
     DumpParser.h \
     Gui/GNode.h \
     Gui/GEdge.h \
-    Gui/dumpview.h
+    Gui/dumpview.h \
+    Gui/LayoutIterationDialog.h
 CONFIG( debug, debug|release ) {
     OBJECTS_DIR=Debug
     DEFINES += DEBUG\
@@ -43,4 +45,5 @@ CONFIG( debug, debug|release ) {
 
 FORMS += \
     Gui/mainscene.ui \
-    Gui/dumpview.ui
+    Gui/dumpview.ui \
+    Gui/LayoutIterationDialog.ui
