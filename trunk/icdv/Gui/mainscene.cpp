@@ -46,7 +46,7 @@ bool MainScene::ZoomOut() {
 }
 
 void MainScene::SetLayoutIteratrions() {
-   LayoutIterationDialog * dial = new LayoutIterationDialog();
+   LayoutIterationDialog * dial = new LayoutIterationDialog(this);
    dial->show();
    layout_iterations = dial->GetLayoutIterations();
 }

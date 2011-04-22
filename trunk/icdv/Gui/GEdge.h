@@ -70,6 +70,7 @@ protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                QWidget *widget);
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    QPainterPath shape() const;
 
 private:
     bool pressed;
