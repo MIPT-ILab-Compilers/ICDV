@@ -1,6 +1,10 @@
 #include "LayoutIterationDialog.h"
 #include "ui_LayoutIterationDialog.h"
 
+#include <QEventLoop>
+#include <QTimer>
+#include <QObject>
+
 LayoutIterationDialog::LayoutIterationDialog(QMainWindow *parent) :
     QDialog(parent),
     ui(new Ui::LayoutIterationDialog)
@@ -10,7 +14,10 @@ LayoutIterationDialog::LayoutIterationDialog(QMainWindow *parent) :
     setWindowTitle("Set layout iterations");
     setFocus();
     raise();
+    QEventLoop eventLoop;
     this->setEnabled(true);
+    QObject::connect(ui->buttonBox, SIGNAL(accepted()), &eventLoop, SLOT(returnValue()));
+
 }
 
 LayoutIterationDialog::~LayoutIterationDialog()
@@ -19,5 +26,5 @@ LayoutIterationDialog::~LayoutIterationDialog()
 }
 
 int LayoutIterationDialog::GetLayoutIterations() {
-        return ui->layoutSpinBox->value();
-    }
+    return ui->layoutSpinBox->value();
+}

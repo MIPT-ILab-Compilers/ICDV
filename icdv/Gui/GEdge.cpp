@@ -103,7 +103,7 @@ QPainterPath GEdge::shape() const {
     QPainterPath path(sourcePoint);
     QPainterPathStroker stroker;
     path.lineTo(destPoint);
-    stroker.setWidth( 10);
+    stroker.setWidth(20);
     return stroker.createStroke(path);
 }
 
@@ -121,16 +121,7 @@ void GEdge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *
         painter->setPen(QPen(Qt::red, 1, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
     else
         painter->setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
-
-    /*QPainterPath quad_line;
-    if (composite) {
-        quad_line.setElementPositionAt(0, sourcePoint.x(),sourcePoint.y());
-        quad_line.quadTo((sourcePoint.x() + destPoint.x())/2,
-                         (sourcePoint.y() + destPoint.y())/2,
-                         destPoint.x(), destPoint.y());
-        painter->drawPath(quad_line);
-    } else
-    */
+    // TODO(Lega):: add here drawing a curve using QPainterPath.quadTo if edge is composite.
     painter->drawLine(line);
 
     // Draw the arrows.

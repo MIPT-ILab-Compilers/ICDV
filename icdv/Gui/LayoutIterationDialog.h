@@ -14,10 +14,13 @@ class LayoutIterationDialog : public QDialog
 public:
     explicit LayoutIterationDialog(QMainWindow *parent = 0);
     ~LayoutIterationDialog();
-
-    int GetLayoutIterations();
-
+public slots:
+    int returnValue() {
+        return GetLayoutIterations();
+    }
 private:
+    int GetLayoutIterations();
+    bool is_accepted;
     Ui::LayoutIterationDialog *ui;
 };
 

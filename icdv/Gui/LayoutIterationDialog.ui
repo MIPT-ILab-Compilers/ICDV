@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -48,8 +48,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
+     <x>153</x>
+     <y>73</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -64,8 +64,8 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
+     <x>153</x>
+     <y>73</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>
@@ -73,5 +73,24 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>LayoutIterationDialog</receiver>
+   <slot>returnValue()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>130</x>
+     <y>57</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>114</x>
+     <y>27</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
+ <slots>
+  <slot>returnValue()</slot>
+ </slots>
 </ui>

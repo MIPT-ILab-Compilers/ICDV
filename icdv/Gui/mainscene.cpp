@@ -7,6 +7,10 @@
 #include <QImage>
 #include <QFileDialog>
 #include <QString>
+#include <QtGui>
+#include <QGraphicsView>
+#include <QWheelEvent>
+#include <Qt>
 
 #include <map>
 
@@ -27,7 +31,25 @@ MainScene::MainScene(QWidget *parent, const QString * filename) :
     m_scene = new QGraphicsScene(ui->CFGView->sceneRect());
     layout_iterations = 3;
     is_drawed = false;
+    /*ui->CFGView->setCacheMode(CacheBackground);
+    ui->CFGView->setViewportUpdateMode(BoundingRectViewportUpdate);
+    ui->CFGView->setRenderHint(QPainter::Antialiasing);
+    ui->CFGView->setTransformationAnchor(AnchorUnderMouse);
+    */
+    ui->CFGView->scale(qreal(0.8), qreal(0.8));
 }
+
+void MainScene::wheelEvent(QWheelEvent *event) {
+    ScaleView(pow((double)2, -event->delta() / 240.0));
+}
+
+void MainScene::ScaleView(qreal scale_factor) {
+    qreal factor = ui->CFGView->transform().scale(scale_factor, scale_factor).mapRect(QRectF(0, 0, 1, 1)).width();
+    if (factor < 0.07 || factor > 100)
+        return;
+
+    ui->CFGView->scale(scale_factor, scale_factor);
+ }
 
 MainScene::~MainScene() {
     if (m_graph)
@@ -48,7 +70,7 @@ bool MainScene::ZoomOut() {
 void MainScene::SetLayoutIteratrions() {
    LayoutIterationDialog * dial = new LayoutIterationDialog(this);
    dial->show();
-   layout_iterations = dial->GetLayoutIterations();
+   layout_iterations = dial->returnValue();
 }
 
 bool MainScene::LoadDump() {
@@ -118,8 +140,7 @@ void MainScene::resizeEvent(QResizeEvent * resize) {
                                    resize->size().height() - default_frame_width));
 }
 
-bool MainScene::SetGraph(LGraph * graph_to_set)
-{
+bool MainScene::SetGraph(LGraph * graph_to_set) {
     if (m_scene == NULL)
         return false;
 
@@ -229,4 +250,14 @@ bool MainScene::Draw() {
 
     ui->statusbar->showMessage("Draw finished");
     return true;
+}
+
+void MainScene::keyPressEvent(QKeyEvent *event) {
+    switch (event->key()) {
+        case Qt::Key_Plus:
+            ScaleView(qreal(1.2));
+            break;
+        case Qt::Key_Minus:
+            ScaleView(1 / qreal(1.2));
+    }
 }

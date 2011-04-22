@@ -55,6 +55,9 @@ protected:
     // CFGView (look at mainscene.ui).
     QGraphicsScene * m_scene;
 
+    void wheelEvent(QWheelEvent *event);
+    void keyPressEvent(QKeyEvent *event);
+
 protected slots:
     // This function provides resize of main window
     // and CFGView (look at mainscene.ui).
@@ -67,6 +70,7 @@ private:
     bool Draw();
     bool is_drawed;
 
+    void ScaleView(qreal scale_factor);
     int layout_iterations;
     // ui is a main window gui.
     Ui::MainScene *ui;
