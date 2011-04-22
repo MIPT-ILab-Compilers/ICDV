@@ -25,6 +25,7 @@ GEdge::GEdge(GNode *sourceNode, GNode *destNode) : arrowSize(10)
     dest->addEdge(this);
     adjust();
     pressed = false;
+    m_composite_edges = NULL;
 }
 
 GNode *GEdge::sourceNode() const
@@ -151,4 +152,15 @@ void GEdge::mousePressEvent(QGraphicsSceneMouseEvent *event) {
         update();
     }
     QGraphicsItem::mousePressEvent(event);
+}
+
+void GEdge::SetCompositeEdges (const std::list<GEdge *> * composite) {
+    if (m_composite_edges) {
+        for (std::list<GEdge *>::iterator iter = m_composite_edges->begin();
+        iter != m_composite_edges->end();
+        iter++)
+            (*iter) = NULL;
+        delete m_composite_edges;
+    }
+    m_composite_edges = const_cast<std::list<GEdge *> *>(composite);
 }

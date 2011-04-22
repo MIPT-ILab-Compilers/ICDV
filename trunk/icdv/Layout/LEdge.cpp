@@ -52,12 +52,14 @@ void LEdge::CompositeEdgesDump() {
     printf("\n");
 }
 
-LEdge::~LEdge(){
-    if (m_composite_edges != NULL) {
-        for (list<pLEdge>::iterator edge_iter = m_composite_edges->begin();
-             edge_iter != m_composite_edges->end();
-             edge_iter++)
-            ((pLEdge) *edge_iter)->m_composite_edges = NULL;
-        delete m_composite_edges;
-    }
+LEdge::~LEdge() {
+    if (m_composite_edges != NULL){
+        list<pLEdge> *temp_list = m_composite_edges;
+        for(list<pLEdge>::iterator edge_iter = temp_list->begin();
+            edge_iter != temp_list->end();
+            edge_iter++){
+                    ((pLEdge) *edge_iter)->m_composite_edges = NULL;
+            }
+   delete temp_list;
+   }
 }

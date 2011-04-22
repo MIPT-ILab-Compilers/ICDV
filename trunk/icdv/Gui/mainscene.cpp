@@ -16,71 +16,7 @@
 #include "ui_mainscene.h"
 #include "../DumpParser.h"
 
-#define node_heigh 10
-#define node_width 10
-
 #define default_frame_width 20
-
-#define default_view_height 600
-#define default_view_width 460
-
-#define default_view_x 10
-#define default_view_y 10
-
-pLGraph VisTest2()
-{
-        pLGraph g = new LGraph();
-
-        int len = 5;
-        pLNode *p = new pLNode[len];
-
-        // Creating a new graph
-        for(int i = 0; i < len; i++) {
-                p[i] = (pLNode)g->AddNode();
-        }
-
-        // Performing some transformations
-        g->AddEdge(p[0],p[1]);
-        g->AddEdge(p[1],p[2]);
-        g->AddEdge(p[2],p[3]);
-        g->AddEdge(p[3],p[4]);
-        g->AddEdge(p[4],p[1]);
-        return g;
-}
-
-pLGraph VisTest()
-{
-        pLGraph g = new LGraph();
-
-        int len = 10;
-        pLNode *p = new pLNode[len];
-
-        // Creating a new graph
-        for(int i = 0; i < len; i++) {
-                p[i] = (pLNode)g->AddNode();
-        }
-
-        // Performing some transformations
-        g->AddEdge(p[0],p[1]);
-        g->AddEdge(p[0],p[2]);
-        g->AddEdge(p[0],p[3]);
-        g->AddEdge(p[1],p[5]);
-        g->AddEdge(p[2],p[6]);
-        g->AddEdge(p[2],p[5]);
-        g->AddEdge(p[3],p[4]);
-        g->AddEdge(p[4],p[7]);
-        g->AddEdge(p[4],p[9]);
-        g->AddEdge(p[5],p[8]);
-        g->AddEdge(p[6],p[9]);
-        g->AddEdge(p[1],p[8]);
-        g->AddEdge(p[1],p[7]);
-        g->AddEdge(p[1],p[6]);
-        g->AddEdge(p[1],p[5]);
-        g->AddEdge(p[1],p[9]);
-
-        return g;
-}
-
 
 MainScene::MainScene(QWidget *parent, const QString * filename) :
     QMainWindow(parent),
@@ -264,7 +200,7 @@ bool MainScene::Draw() {
         ui->statusbar->showMessage("Cannot display the dump");
         return false;
     }
-    m_graph = VisTest2();
+
     m_graph->Layout();
 
     if (SetGraph(m_graph)) {
