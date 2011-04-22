@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8,00"
+	Version="8.00"
 	Name="icdv"
 	ProjectGUID="{8F405C53-237B-4A32-BF12-26D54530B9BF}"
 	RootNamespace="icdv"
@@ -271,6 +271,36 @@
 				Name="Gui"
 				>
 				<File
+					RelativePath=".\Gui\dumpview.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Gui\dumpview.h"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="moc GUI/dumpview.h -o GUI/moc_dumpview.cpp"
+							Outputs="GUI/moc_dumpview.cpp"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Gui\dumpview.ui"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="uic Gui/dumpview.ui -o Gui/ui_dumpview.h"
+							Outputs="Gui/ui_dumpview.h"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
 					RelativePath=".\Gui\GEdge.cpp"
 					>
 				</File>
@@ -285,6 +315,36 @@
 				<File
 					RelativePath=".\Gui\GNode.h"
 					>
+				</File>
+				<File
+					RelativePath=".\Gui\LayoutIterationDialog.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Gui\LayoutIterationDialog.h"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="moc GUI/LayoutIterationDialog.h -o Gui/moc_LayoutIterationDialog.cpp"
+							Outputs="Gui/moc_LayoutIterationDialog.cpp"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Gui\LayoutIterationDialog.ui"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="uic Gui/LayoutIterationDialog.ui -o Gui/ui_LayoutIterationDialog.h"
+							Outputs="Gui/ui_LayoutIterationDialog.ui"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath=".\Gui\mainscene.cpp"
@@ -309,7 +369,7 @@
 						<Tool
 							Name="VCCustomBuildTool"
 							Description="Running MOC for mainscene"
-							CommandLine="moc GUI/mainscene.h -o GUI/moc_mainscene.cpp"
+							CommandLine="moc GUI/mainscene.h -o GUI/moc_mainscene.cpp&#x0D;&#x0A;"
 							Outputs="GUI/moc_mainscene.cpp"
 						/>
 					</FileConfiguration>
@@ -323,7 +383,7 @@
 						<Tool
 							Name="VCCustomBuildTool"
 							Description="Compiling UI Forms: mainscene.ui"
-							CommandLine="uic Gui/mainscene.ui -o Gui/ui_mainscene.h"
+							CommandLine="uic Gui/mainscene.ui -o Gui/ui_mainscene.h&#x0D;&#x0A;"
 							Outputs="Gui/ui_mainscene.h"
 						/>
 					</FileConfiguration>
@@ -333,7 +393,7 @@
 						<Tool
 							Name="VCCustomBuildTool"
 							Description="Compiling UI Forms: mainscene.ui"
-							CommandLine="uic Gui/mainscene.ui -o Gui/ui_mainscene.h"
+							CommandLine="uic Gui/mainscene.ui -o Gui/ui_mainscene.h&#x0D;&#x0A;"
 							Outputs="Gui/ui_mainscene.h"
 						/>
 					</FileConfiguration>
@@ -342,7 +402,23 @@
 					Name="Generated files"
 					>
 					<File
+						RelativePath=".\Gui\moc_dumpview.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Gui\moc_LayoutIterationDialog.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\Gui\moc_mainscene.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Gui\ui_dumpview.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Gui\ui_LayoutIterationDialog.h"
 						>
 					</File>
 					<File
