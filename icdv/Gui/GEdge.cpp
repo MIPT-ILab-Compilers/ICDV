@@ -3,6 +3,8 @@
  */
 
 #include <QPainter>
+#include <QPainterPath>
+#include <QPainterPathStroker>
 
 #include "GEdge.h"
 #include "GNode.h"
@@ -97,6 +99,14 @@ QRectF GEdge::boundingRect() const
             .adjusted(-extra, -extra, extra, extra);
 }
 
+QPainterPath GEdge::shape() const {
+    QPainterPath path(sourcePoint);
+    QPainterPathStroker stroker;
+    path.lineTo(destPoint);
+    stroker.setWidth( 10);
+    return stroker.createStroke(path);
+}
+
 void GEdge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     if (!source || !dest)
@@ -112,6 +122,15 @@ void GEdge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *
     else
         painter->setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
 
+    /*QPainterPath quad_line;
+    if (composite) {
+        quad_line.setElementPositionAt(0, sourcePoint.x(),sourcePoint.y());
+        quad_line.quadTo((sourcePoint.x() + destPoint.x())/2,
+                         (sourcePoint.y() + destPoint.y())/2,
+                         destPoint.x(), destPoint.y());
+        painter->drawPath(quad_line);
+    } else
+    */
     painter->drawLine(line);
 
     // Draw the arrows.
