@@ -49,9 +49,7 @@ public:
     // Be careful with using of this function: it might produce a memory leak
     // when composite param is NULL and m_composite_edges isn't NULL;
     // TODO(Lega): add right memory free for situation above.
-    void SetCompositeEdges (const std::list<GEdge *> * composite) {
-        m_composite_edges = const_cast<std::list<GEdge *> *>(composite);
-    }
+    void SetCompositeEdges (const std::list<GEdge *> * composite);
 
     const std::list<GEdge *> * CompositeEdges() {
         return m_composite_edges;
@@ -71,7 +69,6 @@ protected:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                QWidget *widget);
-    // TODO(Lega): add right highlight of long edges.
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
 
 private:
