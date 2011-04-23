@@ -35,10 +35,6 @@ MainScene::MainScene(QWidget *parent, const QString * filename) :
     ui->CFGView->scale(qreal(0.8), qreal(0.8));
 }
 
-void MainScene::wheelEvent(QWheelEvent *event) {
-    ScaleView(pow((double)2, -event->delta() / 240.0));
-}
-
 void MainScene::ScaleView(qreal scale_factor) {
     qreal factor = ui->CFGView->transform().scale(scale_factor, scale_factor).mapRect(QRectF(0, 0, 1, 1)).width();
     if (factor < 0.07 || factor > 100)

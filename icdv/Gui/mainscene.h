@@ -67,7 +67,6 @@ protected:
     // CFGView (look at mainscene.ui).
     QGraphicsScene * m_scene;
 
-    void wheelEvent(QWheelEvent *event);
     //void keyPressEvent(QKeyEvent *event);
 
 protected slots:
@@ -86,7 +85,6 @@ private:
     int layout_iterations;
     // ui is a main window gui.
     Ui::MainScene *ui;
-    int timerId;
 };
 
 #endif // MAINSCENE_H
