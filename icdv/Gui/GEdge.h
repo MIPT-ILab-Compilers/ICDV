@@ -6,6 +6,8 @@
 
 #include <QGraphicsItem>
 #include <QGraphicsSceneMouseEvent>
+#include <QPointF>
+
 #include <list>
 
 class GNode;
@@ -13,8 +15,7 @@ class MainScene;
 
 typedef GNode * pGNode;
 
-class GEdge : public QGraphicsItem
-{
+class GEdge : public QGraphicsItem {
 public:
     GEdge(GNode *sourceNode, GNode *destNode);
 
@@ -26,24 +27,38 @@ public:
     enum { Type = UserType + 2 };
     int type() const { return Type; }
 
-    void SetFromDummy(bool from_dummy) {
+    inline void SetFromDummy(bool from_dummy) {
         is_from_dummy_node = from_dummy;
     }
 
-    void SetPressed (bool is_pressed) {
+    inline void SetPressed (bool is_pressed) {
         pressed = is_pressed;
     }
 
-    bool FromDummy() {
+    inline bool FromDummy() {
         return is_from_dummy_node;
     }
 
-    bool ToDummy() {
+    inline bool ToDummy() {
         return is_to_dummy_node;
     }
 
-    void SetToDummy(bool to_dummy) {
+    inline void SetToDummy(bool to_dummy) {
         is_to_dummy_node = to_dummy;
+    }
+
+    inline void SetDest (QPointF * dest) {
+        if (!dest)
+            return;
+        destPoint.setX(dest->x());
+        destPoint.setY(dest->y());
+    }
+
+    inline void SetSource (QPointF * source) {
+        if (!source)
+            return;
+        sourcePoint.setX(source->x());
+        sourcePoint.setY(source->y());
     }
 
     // Be careful with using of this function: it might produce a memory leak
@@ -51,15 +66,15 @@ public:
     // TODO(Lega): add right memory free for situation above.
     void SetCompositeEdges (const std::list<GEdge *> * composite);
 
-    const std::list<GEdge *> * CompositeEdges() {
+    inline const std::list<GEdge *> * CompositeEdges() {
         return m_composite_edges;
     }
 
-    bool Composite() {
+    inline bool Composite() {
         return composite;
     }
 
-    void SetComposite(bool is_composite) {
+    inline void SetComposite(bool is_composite) {
         composite = is_composite;
     }
 

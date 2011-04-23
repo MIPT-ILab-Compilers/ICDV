@@ -33,6 +33,12 @@ public:
     explicit MainScene(QWidget *parent = 0, const QString * filename = 0);
     ~MainScene();
 
+    void SetLayoutIteratrions(int retries) {
+        if (retries < 1)
+            return;
+        layout_iterations = retries;
+    }
+
 public slots:
     bool LoadDump();
     bool Save();
@@ -45,6 +51,7 @@ public slots:
     void ZoomOut() {
         ScaleView(qreal(1./1.2));
     }
+
     void SetLayoutIteratrions();
     bool Resize(const QSize &iconSize);
 
@@ -79,6 +86,7 @@ private:
     int layout_iterations;
     // ui is a main window gui.
     Ui::MainScene *ui;
+    int timerId;
 };
 
 #endif // MAINSCENE_H

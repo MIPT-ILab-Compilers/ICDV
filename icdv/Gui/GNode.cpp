@@ -22,9 +22,9 @@ GNode::GNode(QMainWindow * graphWidget, bool dummy,
     m_graphWidget = graphWidget;
     is_dummy = dummy;
     clicked = false;
-    // setFlag(ItemIsMovable);
-    // setFlag(ItemSendsGeometryChanges);
-    // setCacheMode(DeviceCoordinateCache);
+    setFlag(ItemIsMovable);
+    setFlag(ItemSendsGeometryChanges);
+    setCacheMode(DeviceCoordinateCache);
     setZValue(-1);
     id = m_id;
     m_source.clear();
@@ -101,11 +101,12 @@ void GNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
 }
 
 void GNode::mousePressEvent(QGraphicsSceneMouseEvent *event) {
-    DumpView * nodeWindow = new DumpView(id ,m_source, (QWidget *)(m_graphWidget));
-    nodeWindow->SetText(m_source);
-    nodeWindow->show();
+    if (event->button() == Qt::RightButton) {
+        DumpView * nodeWindow = new DumpView(id ,m_source, (QWidget *)(m_graphWidget));
+        nodeWindow->SetText(m_source);
+        nodeWindow->show();
+    }
 }
-
 
 void GNode::calculateForces()
  {
@@ -152,3 +153,22 @@ void GNode::calculateForces()
      newPos.setX(qMin(qMax(newPos.x(), sceneRect.left() + 10), sceneRect.right() - 10));
      newPos.setY(qMin(qMax(newPos.y(), sceneRect.top() + 10), sceneRect.bottom() - 10));
  }
+
+QVariant GNode::itemChange(GraphicsItemChange change, const QVariant &value) {
+    switch (change) {
+        case ItemPositionHasChanged:
+            foreach (GEdge *edge, edgeList) {
+                edge->adjust();
+                if (edge->sourceNode() == this)
+                    edge->SetSource(&(this->pos()));
+                else
+                    edge->SetDest(&(this->pos()));
+            }
+            break;
+        default:
+            break;
+    };
+
+    return QGraphicsItem::itemChange(change, value);
+}
+
