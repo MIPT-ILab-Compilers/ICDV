@@ -31,11 +31,7 @@ MainScene::MainScene(QWidget *parent, const QString * filename) :
     m_scene = new QGraphicsScene(ui->CFGView->sceneRect());
     layout_iterations = 3;
     is_drawed = false;
-    /*ui->CFGView->setCacheMode(CacheBackground);
-    ui->CFGView->setViewportUpdateMode(BoundingRectViewportUpdate);
     ui->CFGView->setRenderHint(QPainter::Antialiasing);
-    ui->CFGView->setTransformationAnchor(AnchorUnderMouse);
-    */
     ui->CFGView->scale(qreal(0.8), qreal(0.8));
 }
 
@@ -60,9 +56,8 @@ MainScene::~MainScene() {
 }
 
 void MainScene::SetLayoutIteratrions() {
-   LayoutIterationDialog * dial = new LayoutIterationDialog(this);
+   LayoutIterationDialog * dial = new LayoutIterationDialog((QWidget *)this);
    dial->show();
-   layout_iterations = dial->returnValue();
 }
 
 bool MainScene::LoadDump() {
@@ -243,14 +238,3 @@ bool MainScene::Draw() {
     ui->statusbar->showMessage("Draw finished");
     return true;
 }
-/*
-void MainScene::keyPressEvent(QKeyEvent *event) {
-    switch (event->key()) {
-        case Qt::Key_Plus:
-            ScaleView(qreal(1.2));
-            break;
-        case Qt::Key_Minus:
-            ScaleView(1 / qreal(1.2));
-    }
-}
-*/
