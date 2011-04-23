@@ -158,12 +158,14 @@ QVariant GNode::itemChange(GraphicsItemChange change, const QVariant &value) {
     switch (change) {
         case ItemPositionHasChanged:
             foreach (GEdge *edge, edgeList) {
-                edge->adjust();
                 if (edge->sourceNode() == this)
                     edge->SetSource(&(this->pos()));
                 else
                     edge->SetDest(&(this->pos()));
+                edge->adjust();
             }
+            this->setActive(true);
+            this->setEnabled(true);
             break;
         default:
             break;
