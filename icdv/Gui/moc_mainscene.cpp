@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainscene.h'
 **
-** Created: Fri Apr 22 09:47:15 2011
+** Created: Sat Apr 23 09:52:36 2011
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.1)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -35,8 +35,8 @@ static const uint qt_meta_data_MainScene[] = {
       27,   10,   11,   10, 0x0a,
       34,   10,   11,   10, 0x0a,
       44,   10,   11,   10, 0x0a,
-      54,   10,   11,   10, 0x0a,
-      63,   10,   11,   10, 0x0a,
+      54,   10,   10,   10, 0x0a,
+      63,   10,   10,   10, 0x0a,
       73,   10,   10,   10, 0x0a,
      105,   96,   11,   10, 0x0a,
      126,  119,   10,   10, 0x09,
@@ -88,10 +88,8 @@ int MainScene::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = _r; }  break;
         case 3: { bool _r = Version();
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = _r; }  break;
-        case 4: { bool _r = ZoomIn();
-            if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = _r; }  break;
-        case 5: { bool _r = ZoomOut();
-            if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = _r; }  break;
+        case 4: ZoomIn(); break;
+        case 5: ZoomOut(); break;
         case 6: SetLayoutIteratrions(); break;
         case 7: { bool _r = Resize((*reinterpret_cast< const QSize(*)>(_a[1])));
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = _r; }  break;
