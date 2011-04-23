@@ -6,7 +6,6 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QPainter>
 #include <QStyleOption>
-#include <QStaticText>
 #include <QWidget>
 
 #include <stdlib.h>
@@ -109,7 +108,7 @@ void GNode::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 }
 
 void GNode::calculateForces()
- {
+ { return;
      if (!scene() || scene()->mouseGrabberItem() == this) {
          newPos = pos();
          return;
@@ -164,8 +163,6 @@ QVariant GNode::itemChange(GraphicsItemChange change, const QVariant &value) {
                     edge->SetDest(&(this->pos()));
                 edge->adjust();
             }
-            this->setActive(true);
-            this->setEnabled(true);
             break;
         default:
             break;

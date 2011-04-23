@@ -27,34 +27,34 @@ public:
     enum { Type = UserType + 2 };
     int type() const { return Type; }
 
-    inline void SetFromDummy(bool from_dummy) {
+    void SetFromDummy(bool from_dummy) {
         is_from_dummy_node = from_dummy;
     }
 
-    inline void SetPressed (bool is_pressed) {
+    void SetPressed (bool is_pressed) {
         pressed = is_pressed;
     }
 
-    inline bool FromDummy() {
+    bool FromDummy() {
         return is_from_dummy_node;
     }
 
-    inline bool ToDummy() {
+    bool ToDummy() {
         return is_to_dummy_node;
     }
 
-    inline void SetToDummy(bool to_dummy) {
+    void SetToDummy(bool to_dummy) {
         is_to_dummy_node = to_dummy;
     }
 
-    inline void SetDest (QPointF * dest) {
+    void SetDest (QPointF * dest) {
         if (!dest)
             return;
         destPoint.setX(dest->x());
         destPoint.setY(dest->y());
     }
 
-    inline void SetSource (QPointF * source) {
+    void SetSource (QPointF * source) {
         if (!source)
             return;
         sourcePoint.setX(source->x());
@@ -66,15 +66,15 @@ public:
     // TODO(Lega): add right memory free for situation above.
     void SetCompositeEdges (const std::list<GEdge *> * composite);
 
-    inline const std::list<GEdge *> * CompositeEdges() {
+    const std::list<GEdge *> * CompositeEdges() {
         return m_composite_edges;
     }
 
-    inline bool Composite() {
+    bool Composite() {
         return composite;
     }
 
-    inline void SetComposite(bool is_composite) {
+    void SetComposite(bool is_composite) {
         composite = is_composite;
     }
 
