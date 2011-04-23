@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainscene.ui'
 **
-** Created: Fri Apr 22 09:47:15 2011
+** Created: Fri Apr 22 21:13:56 2011
 **      by: Qt User Interface Compiler version 4.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -123,7 +123,9 @@ public:
         actionAuthors->setText(QApplication::translate("MainScene", "Authors", 0, QApplication::UnicodeUTF8));
         actionVersion->setText(QApplication::translate("MainScene", "Version", 0, QApplication::UnicodeUTF8));
         actionZoom_In->setText(QApplication::translate("MainScene", "Zoom in", 0, QApplication::UnicodeUTF8));
+        actionZoom_In->setShortcut(QApplication::translate("MainScene", "+", 0, QApplication::UnicodeUTF8));
         actionZoom_Out->setText(QApplication::translate("MainScene", "Zoom out", 0, QApplication::UnicodeUTF8));
+        actionZoom_Out->setShortcut(QApplication::translate("MainScene", "_", 0, QApplication::UnicodeUTF8));
         actionSet_Layout_iterations->setText(QApplication::translate("MainScene", "Set layout iterations", 0, QApplication::UnicodeUTF8));
         actionRedraw_graph->setText(QApplication::translate("MainScene", "Redraw graph", 0, QApplication::UnicodeUTF8));
         menuFile->setTitle(QApplication::translate("MainScene", "File", 0, QApplication::UnicodeUTF8));
